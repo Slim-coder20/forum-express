@@ -8,6 +8,38 @@
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <h1 class="pt-40">Explorer les dernières discussions 📢</h1>
+    <div class="u-main-container pt-32 pb-44">
+      <h1 class="text-2xl mb-8">Explorer les dernières discussions 📢</h1>
+      <% if(threads && threads.length > 0 ) { %>
+      <ul class="js-threads-list space-y-4">
+        <% threads.forEach(thread => { %>
+        <li
+          class="flex items-baseline border border-gray-400 p-5 rounded hover:bg-zinc-800"
+        >
+          <a
+            href="/discussion/<%= thread.slug %>?page=1"
+            class="text-lg text-gray-200 underline underline-offset-4 truncate"
+          >
+            <%= thread.title %>
+          </a>
+          <span class="mr-auto ml-2 text-sm text-gray-100 truncate">
+            - Créer par "Auteur statique"</span
+          >
+          <span class="text-sm text-gray-200 truncate">
+            Post(s) : <%= thread.postCount %> -&nbsp;
+          </span>
+          <span class="text-sm text-gray-400 truncate">
+            Dernier message <%= new
+            Date(thread.updatedAt).toLocaleDateString("fr-FR") %> à <%= new
+            Date(thread.updatedAt).toLocaleTimeString("fr-FR", {hour: "2-digit",
+            minute: "2-digit"}) %>
+          </span>
+        </li>
+        <% }) %>
+      </ul>
+      <% } else { %>
+      <p class="mt-8">Aucune discussion pour le moment</p>
+      <% } %>
+    </div>
   </body>
 </html>
