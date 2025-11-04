@@ -1,0 +1,160 @@
+# Forum Express
+
+Application web de forum développée avec **Express.js**, **Node.js** et **Tailwind CSS**. Cette plateforme permet aux utilisateurs de créer des discussions, d'interagir et de partager leurs idées.
+
+## 🚀 Technologies utilisées
+
+- **Node.js** - Environnement d'exécution JavaScript
+- **Express.js** - Framework web pour Node.js
+- **EJS** - Moteur de template pour les vues
+- **Tailwind CSS** - Framework CSS utilitaire
+- **MongoDB** / **Mongoose** - Base de données NoSQL et ODM
+- **bcrypt** - Hachage des mots de passe
+- **cookie-parser** - Gestion des cookies de session
+- **marked** - Parser Markdown pour le contenu
+- **DOMPurify** - Sanitization HTML pour la sécurité
+- **Quill** - Éditeur de texte riche (WYSIWYG)
+- **slugify** - Génération d'URLs propres (slugs)
+
+## 📋 Prérequis
+
+- Node.js (version 14 ou supérieure)
+- npm (gestionnaire de paquets Node.js)
+- MongoDB (base de données)
+
+## 🛠️ Installation
+
+1. **Cloner le dépôt** (ou télécharger le projet)
+   ```bash
+   git clone <url-du-depot>
+   cd forum-express
+   ```
+
+2. **Installer les dépendances**
+   ```bash
+   npm install
+   ```
+
+3. **Configurer les variables d'environnement**
+   Créer un fichier `.env` à la racine du projet avec les variables nécessaires :
+   ```env
+   PORT=3000
+   MONGODB_URI=mongodb://localhost:27017/forum-express
+   SESSION_SECRET=votre-secret-de-session
+   ```
+
+4. **Démarrer MongoDB**
+   Assurez-vous que MongoDB est en cours d'exécution sur votre machine.
+
+## ▶️ Démarrage
+
+### Mode développement
+
+Pour démarrer le serveur en mode développement avec rechargement automatique :
+```bash
+npm run dev
+```
+
+### Compilation Tailwind CSS
+
+Pour compiler et surveiller les fichiers Tailwind CSS :
+```bash
+npm run buildTailwind
+```
+
+Le serveur sera accessible à l'adresse : `http://localhost:3000`
+
+## 📁 Structure du projet
+
+```
+forum-express/
+├── index.js                 # Point d'entrée principal de l'application
+├── package.json             # Dépendances et scripts npm
+├── nodemon.json             # Configuration Nodemon
+├── routes/                  # Routes de l'application
+│   └── pages/              # Routes des pages
+│       └── index.js        # Routeur principal
+├── views/                   # Templates EJS
+│   └── pages/              # Vues des pages
+│       └── home.ejs        # Page d'accueil
+├── public/                  # Fichiers statiques
+│   ├── styles/             # Fichiers CSS compilés
+│   │   └── main.css        # CSS principal (Tailwind compilé)
+│   └── icons/              # Icônes SVG
+├── styles/                  # Fichiers sources CSS
+│   └── input/              # Fichiers d'entrée Tailwind
+│       └── tailwindInput.css
+└── .gitignore              # Fichiers ignorés par Git
+```
+
+## 🎯 Fonctionnalités
+
+- ✅ Page d'accueil avec navigation
+- ✅ Création de discussions
+- ✅ Système d'authentification (connexion/inscription)
+- ✅ Interface utilisateur moderne avec Tailwind CSS
+- ✅ Éditeur de texte riche (Quill)
+- ✅ Support du Markdown avec sanitization
+- 🔄 Fonctionnalités en cours de développement...
+
+## 📝 Scripts disponibles
+
+- `npm run dev` - Démarre le serveur en mode développement avec Nodemon
+- `npm run buildTailwind` - Compile les fichiers Tailwind CSS en mode watch
+- `npm test` - Lance les tests (à configurer)
+
+## 🔧 Configuration
+
+### Port du serveur
+Par défaut, le serveur écoute sur le port **3000**. Vous pouvez modifier cette valeur dans le fichier `index.js` ou via une variable d'environnement.
+
+### Base de données
+Le projet utilise MongoDB avec Mongoose. Assurez-vous que votre URI de connexion MongoDB est correctement configurée dans le fichier `.env`.
+
+## 🎨 Personnalisation
+
+### Tailwind CSS
+Les fichiers Tailwind sont dans `styles/input/tailwindInput.css`. Après modification, exécutez `npm run buildTailwind` pour compiler les styles.
+
+### Vues EJS
+Les templates sont dans le dossier `views/pages/`. Vous pouvez modifier les fichiers `.ejs` pour personnaliser l'interface.
+
+## 📦 Dépendances principales
+
+### Production
+- `express` - Framework web
+- `ejs` - Moteur de template
+- `mongoose` - ODM pour MongoDB
+- `bcrypt` - Hachage des mots de passe
+- `cookie-parser` - Gestion des cookies
+- `dotenv` - Variables d'environnement
+- `marked` - Parser Markdown
+- `dompurify` - Sanitization HTML
+- `quill` - Éditeur de texte riche
+- `slugify` - Génération de slugs
+- `tailwindcss` - Framework CSS
+
+### Développement
+- `nodemon` - Rechargement automatique du serveur
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à :
+1. Fork le projet
+2. Créer une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📄 Licence
+
+Ce projet est sous licence ISC.
+
+## 👤 Auteur
+
+Projet développé dans le cadre d'une formation React/Express.
+
+---
+
+**Note** : Ce projet est en cours de développement. Certaines fonctionnalités peuvent être incomplètes ou en cours d'implémentation.
+
