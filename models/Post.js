@@ -10,6 +10,7 @@ cosnt postSchema = new mongoose.Schema ({
   },
   HTMLPost: {
     type: String,
+    minlength: 1
 
   },
   postNumber: {

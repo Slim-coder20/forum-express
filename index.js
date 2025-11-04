@@ -11,6 +11,8 @@ import pagesRouter from "./routes/pages/index.js";
 import dotenv from "dotenv"
 // import de la fonction de connexion à la base de données MongoDB
 import { mongoConnection } from "./utils/db/mongoConnection.js";
+// import du routeur des threads //
+import threadsRouter from "./routes/api/threads.js";
 
 // Configuration des variables d'environnement
 dotenv.config()
@@ -35,6 +37,9 @@ app.set("view engine", "ejs");
 // Configuration des routes de l'application
 // Le routeur des pages gère toutes les routes principales (racine "/")
 app.use("/", pagesRouter);
+
+// Configuration des routes des threads //
+app.use("/api/threads", threadsRouter);
 
 // Démarrage du serveur sur le port 3000
 // Le serveur écoute les requêtes HTTP entrantes
