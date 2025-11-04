@@ -50,31 +50,33 @@
         e.preventDefault();
         createThreadInfo.textContent = "";
         // vérification que le post contient au moins un caractère //
-          if (!quill.getText().trim()) {
+        if (!quill.getText().trim()) {
           createThreadInfo.textContent =
             "Le post doit contenir au mooins un caractère.";
           return;
         }
-        
+
         try {
-          // Envoie de la requete pour créer la discussion // 
+          // Envoie de la requete pour créer la discussion //
           const response = await fetch("/api/threads/create", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ 
-              title: titleInput.value, 
-              content: quill.root.innerHTML
-             }),
+            body: JSON.stringify({
+              title: titleInput.value,
+              content: quill.root.innerHTML,
+            }),
           });
-          
-          if(!response.ok) {
+
+          if (!response.ok) {
             // Récupération du message d'erreur du serveur //
-            const errorData = await response.json().catch(() => ({ message: "Erreur serveur" }));
+            const errorData = await response
+              .json()
+              .catch(() => ({ message: "Erreur serveur" }));
             throw new Error(errorData.message || "Erreur serveur");
           }
-          
+
           const data = await response.json();
           console.log(data);
           // affichage du message de succès //
@@ -83,7 +85,6 @@
           titleInput.value = "";
           // remise a zero de l'éditeur de texte //
           quill.root.innerHTML = "";
-          
         } catch (error) {
           createThreadInfo.textContent = `Erreur : ${error.message}`;
         }

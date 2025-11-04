@@ -5,6 +5,8 @@
 
 // Import du module Express pour créer un routeur
 import express from "express";
+// import de la fonction pour récupérer les discussions pour la page d'accueil //
+import { getThreadsForHomePage } from "../../services/thread/queries.js";
 
 // Instanciation de l'objet Router d'Express
 // Permet de définir des routes modulaires qui peuvent être montées dans l'application principale
@@ -17,13 +19,11 @@ const router = express.Router();
  * @param {Object} req - Objet de requête Express contenant les informations de la requête HTTP
  * @param {Object} res - Objet de réponse Express pour envoyer la réponse au client
  */
-router.get("/", (req, res) => {
-  // Ancienne réponse simple (commentée) - remplacée par le rendu de la vue
-  //res.send("Bienvenue ")
+router.get("/", async (req, res) => {
+  // récupération des discussions pour la page d'accueil //
+  const { threads } = await getThreadsForHomePage(1);
 
-  // Rendu de la vue EJS "pages/home" avec le titre dynamique
-  // Le titre est passé comme variable locale et sera disponible dans le template
-  res.render("pages/home");
+  res.render("pages/home", { threads });
 });
 
 // création de la route pour la page d'ajout de discussion //
