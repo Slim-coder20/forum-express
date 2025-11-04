@@ -41,6 +41,7 @@ app.set("view engine", "ejs");
 // Le routeur des pages gère toutes les routes principales (racine "/")
 app.use("/", pagesRouter);
 
+
 // Configuration des routes des threads //
 app.use("/api/threads", threadsRouter);
 

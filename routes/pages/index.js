@@ -31,5 +31,15 @@ router.get("/ajouter-une-discussion", (req, res) => {
   res.render("pages/ajouter-une-discussion");
 });
 
+// créattion de la route pour la page d'inscription // 
+router.get("/inscription", (req, res) => {
+  res.render("pages/inscription"); 
+})
+
+// création de la route pour la page de connexion // 
+router.get("/connexion", (req, res) => {
+  res.render("pages/connexion")
+})
+
 // Export du routeur pour qu'il puisse être utilisé dans index.js
 export default router;

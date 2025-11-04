@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// création du schéma de la discussion //
+// création du schéma de la discussion  //
 const threadSchema = new mongoose.Schema(
   {
     // titre de la discussion //

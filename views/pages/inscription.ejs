@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inscription | Forum Express</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body class="pt-40">
+    <%- include("../partials/navbar.ejs") %>
+
+    <form
+      action=""
+      method="post"
+      class="js-signup-form max-w-md mx-auto px-8 pt-8 pb-10 border border-gray-400 rounded"
+    >
+      <p class="text-2xl text-center mb-8">Inscription</p>
+      <div class="mb-4">
+        <label for="pseudo" class="f-label mb-2">Votre pseudo</label>
+        <input
+          type="text"
+          class="f-input"
+          id="pseudo"
+          name="pseudo"
+          minlength="3"
+          maxlength="30"
+          required
+        />
+      </div>
+      <div class="mb-4">
+        <label for="email" class="f-label mb-2">Votre email</label>
+        <input
+          type="email"
+          class="f-input"
+          id="email"
+          name="email"
+          maxlength="254"
+          autocomplete="email"
+          required
+        />
+      </div>
+      <div class="mb-4">
+        <label for="password" class="f-label">Votre mot de passe </label>
+        <p class="text-sm mb-4">
+          6 caractères min, au moins une minuscule, une majuscule, un chiffre et
+          un caractère spécial
+        </p>
+        <input
+          type="password"
+          class="f-input"
+          id="password"
+          name="password"
+          autocomplete="new-password"
+          required
+          minlength="6"
+          maxlength="72"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':&quot;\\|,.<>\/?]).*$"
+          title="Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et un caractère spécial"
+        />
+      </div>
+      <div class="mb-12">
+        <label for="repeatedPassword" class="f-label"
+          >Confirmez votre mot passe</label
+        >
+        <input
+          type="password"
+          class="f-input"
+          id="repeatedPassword"
+          name="repeatedPassword"
+          required
+        />
+      </div>
+      <button class="c-btn w-full mb-5">Créer un compte</button>
+      <p class="js-server-info text-lg"></p>
+    </form>
+  </body>
+</html>
