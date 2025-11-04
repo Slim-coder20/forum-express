@@ -1,0 +1,6 @@
+{
+  "_comment": "Configuration de Nodemon pour le développement - Nodemon surveille les changements de fichiers et redémarre automatiquement le serveur",
+  "watch": ["."],
+  "ignore": ["node_modules", ".git"],
+  "ext": "js,ejs,css"
+}

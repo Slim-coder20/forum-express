@@ -1,0 +1,34 @@
+{
+  "name": "playground",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
+    "buildTailwind": "npx @tailwindcss/cli -i ./styles/input/tailwindInput.css -o ./public/styles/main.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.12",
+    "bcrypt": "^6.0.0",
+    "cookie-parser": "^1.4.7",
+    "dompurify": "^3.2.6",
+    "dotenv": "^17.2.1",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "jsdom": "^26.1.0",
+    "marked": "^16.2.0",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.2",
+    "quill": "^2.0.3",
+    "slugify": "^1.6.6",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

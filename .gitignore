@@ -1,0 +1,15 @@
+# Dossier contenant les dépendances npm installées
+# Ne doit pas être versionné car il peut être régénéré avec npm install
+node_modules
+
+# Fichiers d'environnement contenant des variables sensibles (clés API, mots de passe, etc.)
+# Ces fichiers ne doivent jamais être versionnés pour des raisons de sécurité
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.development
+.env.test
+.env.production
+
