@@ -30,6 +30,9 @@ app.use("/vendor/quill", express.static("node_modules/quill/dist"));
 
 app.use(express.static("public"));
 
+// Configuration du middleware pour parser le corps des requetes JSON // 
+app.use(express.json());
+
 // Configuration du moteur de template EJS
 // Permet de rendre des vues dynamiques avec la syntaxe EJS
 app.set("view engine", "ejs");

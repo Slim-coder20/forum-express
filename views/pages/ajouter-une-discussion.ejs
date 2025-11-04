@@ -65,28 +65,27 @@
             },
             body: JSON.stringify({ 
               title: titleInput.value, 
-              content: quill.root.innerHtml
+              content: quill.root.innerHTML
              }),
           });
+          
           if(!response.ok) {
-            throw new Error("Erreur serveur");
-
-          }else{
-            const data = await response.json();
-            console.log(data);
-            // affichage du message de succès //
-            createThreadInfo.textContent = `${data.message} : ${data.thread.title}`;
-            // repise a zero les champs du formulaire //
-            titleInput.value = "";
-            // remise a zero de l'éditeur de texte //
-            quill.root.innerHTML = "";
+            // Récupération du message d'erreur du serveur //
+            const errorData = await response.json().catch(() => ({ message: "Erreur serveur" }));
+            throw new Error(errorData.message || "Erreur serveur");
           }
+          
+          const data = await response.json();
+          console.log(data);
+          // affichage du message de succès //
+          createThreadInfo.textContent = `${data.message} : ${data.thread.title}`;
+          // repise a zero les champs du formulaire //
+          titleInput.value = "";
+          // remise a zero de l'éditeur de texte //
+          quill.root.innerHTML = "";
           
         } catch (error) {
           createThreadInfo.textContent = `Erreur : ${error.message}`;
-       
-        } finally {
-          createThreadInfo.textContent = `Thread created`;
         }
       }
     </script>

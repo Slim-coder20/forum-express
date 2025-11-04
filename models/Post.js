@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // création du schema du post // 
-cosnt postSchema = new mongoose.Schema ({
+const postSchema = new mongoose.Schema ({
   thread: {
     // reference au thread //
     type: mongoose.Schema.Types.ObjectId,
