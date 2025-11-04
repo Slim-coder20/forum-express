@@ -7,12 +7,26 @@
 import express from "express";
 // Import du routeur des pages (routes principales de l'application)
 import pagesRouter from "./routes/pages/index.js";
+// import du Dotenv 
+import dotenv from "dotenv"
+// import de la fonction de connexion à la base de données MongoDB
+import { mongoConnection } from "./utils/db/mongoConnection.js";
 
+// Configuration des variables d'environnement
+dotenv.config()
+// Connexion à la base de données MongoDB
+await mongoConnection();
 // Instanciation de l'application Express
 // Cette instance sera utilisée pour configurer les middlewares et les routes
 const app = express();
 
-app.use(express.static("public"))
+// Configuration du middleware pour servir les fichiers statiques de Quill
+// Les fichiers du module Quill (CSS, JS) seront accessibles via l'URL /vendor/quill
+// Par exemple : /vendor/quill/quill.core.css ou /vendor/quill/quill.js
+// Cela permet d'utiliser les ressources de Quill dans les templates EJS
+app.use("/vendor/quill", express.static("node_modules/quill/dist"));
+
+app.use(express.static("public"));
 
 // Configuration du moteur de template EJS
 // Permet de rendre des vues dynamiques avec la syntaxe EJS

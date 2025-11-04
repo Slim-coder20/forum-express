@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ajouter une discussion | Forum Express</title>
+    <link rel="stylesheet" href="/vendor/quill/quill.snow.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <%- include("../partials/navbar.ejs") %>
+    <div class="u-main-container pt-32">
+      <h1 class="text-4xl mb-2">Créer une discussion</h1>
+      <p class="mb-10">
+        Cette nouvelle discssion apparaîtra dans la page principale.
+      </p>
+      <form class="js-thread-form">
+        <div class="mb-10">
+          <label for="thread" class="f-label mb-3"
+            >Titre de la discussion</label
+          >
+          <input
+            type="text"
+            class="js-title-input f-input"
+            id="thread"
+            name="thread"
+            required
+          />
+        </div>
+        <p class="mb-2">Premier message de la discussion</p>
+        <div id="editor"></div>
+        <button class="c-btn mt-4">Créer une discussion</button>
+        <p class="js-create-thread-info"></p>
+      </form>
+    </div>
+    <script src="/vendor/quill/quill.js"></script>
+    <script>
+      const quill = new Quill("#editor", { theme: "snow" });
+    </script>
+  </body>
+</html>

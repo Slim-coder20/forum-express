@@ -1,7 +1,65 @@
 @import "tailwindcss";
 
+@layer base {
+  body {
+    @apply bg-zinc-900 text-gray-50;
+  }
+}
+
 @layer components {
+  /* Utilitaires  */
   .u-main-container {
     @apply max-w-5xl mx-auto px-10;
+  }
+
+  /* components */
+  .c-btn {
+    @apply bg-blue-700 py-2 px-4 text-base cursor-pointer rounded;
+  }
+
+  /* formulaire  */
+  .f-label {
+    @apply block mb-2;
+  }
+
+  .f-input {
+    @apply w-full border border-gray-600 p-2 rounded-md outline-none;
+  }
+  .f-input:focus-visible {
+    @apply border-gray-200;
+  }
+
+  /* Quill's custom  Style  */
+
+  .ql-toolbar {
+    @apply mb-4 border border-gray-600!;
+  }
+
+  .ql-container {
+    @apply rounded-md border! border-gray-600!;
+  }
+
+  .ql-editor {
+    @apply min-h-[200px];
+  }
+
+  .ql-container:focus-within {
+    @apply border-gray-200!;
+  }
+  .ql-toolbar .ql-stroke,
+  .ql-toolbar .ql-stroke svg {
+    stroke: white !important;
+  }
+
+  .ql-toolbar .ql-fill {
+    fill: white !important;
+  }
+
+  .ql-picker-label {
+    color: #f1f1f1 !important;
+  }
+
+  .ql-picker-item {
+    color: #111 !important;
   }
 }

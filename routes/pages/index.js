@@ -26,5 +26,10 @@ router.get("/", (req, res) => {
   res.render("pages/home");
 });
 
+// création de la route pour la page d'ajout de discussion //
+router.get("/ajouter-une-discussion", (req, res) => {
+  res.render("pages/ajouter-une-discussion");
+});
+
 // Export du routeur pour qu'il puisse être utilisé dans index.js
 export default router;
