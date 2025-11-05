@@ -54,7 +54,7 @@
           required
           minlength="6"
           maxlength="72"
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':&quot;\\|,.<>\/?]).*$"
+          pattern="/^(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,72}$/"
           title="Le mot de passe doit contenir au moins une minuscule, une majuscule, un chiffre et un caractère spécial"
         />
       </div>
