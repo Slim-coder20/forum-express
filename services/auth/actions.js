@@ -4,7 +4,7 @@ import User from "../../models/User.js";
 import slugify from "slugify";
 // import de bcrypt pour hacher le mot de passe //
 import bcrypt from "bcrypt";
-import { throws } from "assert";
+import { AuthenticationError } from "../../errors/index.js";
 
 // création de l'utilisateur //
 export async function createUser(signUpData) {
@@ -18,7 +18,7 @@ export async function createUser(signUpData) {
   });
   // Si existing User est true //
   if (existingUser) {
-    throw new Error("Pseudo ou Email déjà utilisé");
+    throw new AuthenticationError("Pseudo ou Email déjà utilisé");
   }
   // création du slug pour le User//
   const normalizedUserName = slugify(pseudo, { lower: true, strict: true });
