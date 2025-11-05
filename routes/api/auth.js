@@ -19,7 +19,7 @@ router.post("/signup", async (req, res) => {
 
     // Validation des données //
     if (!signupData) {
-      throw new ValidationError("Données non conformes.");
+      throw new ValidationError("Données non conformes.", 400, true);
     }
     // Vérification du Pseudo //
     if (
@@ -28,7 +28,7 @@ router.post("/signup", async (req, res) => {
       pseudo.length < 3 ||
       pseudo.length > 30
     ) {
-      throw new ValidationError("Pseudo non conforme");
+      throw new ValidationError("Pseudo non conforme", 400, true);
     }
     // Vérification de l'email //
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -38,7 +38,7 @@ router.post("/signup", async (req, res) => {
       !emailRegex.test(email) ||
       email.length > 254
     ) {
-      throw new ValidationError("Email non conforme");
+      throw new ValidationError("Email non conforme", 400, true);
     }
     // Vérification du mot de passe //
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,72}$/;

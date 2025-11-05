@@ -23,7 +23,7 @@ router.post("/create", async (req, res) => {
       content.trim() === "" ||
       content.length < 1
     ) {
-      throw new ValidationError("Titre et contenu sont requis");
+      throw new ValidationError("Titre et contenu sont requis", 400, true);
     }
     const result = await createThread(title, content);
 

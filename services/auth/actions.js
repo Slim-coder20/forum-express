@@ -8,6 +8,8 @@ import { AuthenticationError } from "../../errors/index.js";
 
 // création de l'utilisateur //
 export async function createUser(signUpData) {
+ 
+  
   const { pseudo, email, password } = signUpData;
 
   const lowercaseEmail = email.toLowerCase();
@@ -18,7 +20,7 @@ export async function createUser(signUpData) {
   });
   // Si existing User est true //
   if (existingUser) {
-    throw new AuthenticationError("Pseudo ou Email déjà utilisé");
+    throw new AuthenticationError("Pseudo ou Email déjà utilisé", 400, true);
   }
   // création du slug pour le User//
   const normalizedUserName = slugify(pseudo, { lower: true, strict: true });

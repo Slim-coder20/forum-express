@@ -15,6 +15,8 @@ import { mongoConnection } from "./utils/db/mongoConnection.js";
 import threadsRouter from "./routes/api/threads.js";
 // import du routeur des Users //
 import authRouter from "./routes/api/auth.js";
+// import de la classe BaseError //
+import { BaseError } from "./errors/index.js";
 
 // Configuration des variables d'environnement
 dotenv.config();
@@ -46,6 +48,24 @@ app.use("/", pagesRouter);
 // Configuration des routes des threads //
 app.use("/api/threads", threadsRouter);
 app.use("/api/auth", authRouter);
+
+// Configuration d'un middware pour gérer les erreurs // 
+app.use((err, req, res, next) => {
+  console.log(err);
+
+  // Soit on montre les erreurs au client soit montrer une erreur générique //
+  if(err instanceof BaseError && err.showToClient) {
+    return res.status(err.statusCode).json({
+      error: err.message,
+      showToUser: err.showToUser,
+    });
+    // Sinon on montre une erreur générique //
+    return res.status(500).json({
+      error: "Erreur interne du serveur", 
+      
+    })
+  }
+})
 
 // Démarrage du serveur sur le port 3000
 // Le serveur écoute les requêtes HTTP entrantes
