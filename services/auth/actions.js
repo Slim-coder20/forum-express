@@ -6,38 +6,34 @@ import slugify from "slugify";
 import bcrypt from "bcrypt";
 import { throws } from "assert";
 
-
-// création de l'utilisateur // 
+// création de l'utilisateur //
 export async function createUser(signUpData) {
+  const { pseudo, email, password } = signUpData;
 
-  cosnt {pseudo, email, password } = signUpData
+  const lowercaseEmail = email.toLowerCase();
 
-  const lowercaseEmail : email.toLowerCase(); 
-  
-  // Vérifier si le User exsite déjà dans la base de donnée / 
+  // Vérifier si le User exsite déjà dans la base de donnée /
   const existingUser = await User.findOne({
-    $or: [{userName: pseudo }, {email: lowercaseEmail}]
-
-  })
-  // Si existing User est true // 
-  if(existingUser) {
-    throws new Error("Pseudo ou Email déjà utilisé")
+    $or: [{ userName: pseudo }, { email: lowercaseEmail }],
+  });
+  // Si existing User est true //
+  if (existingUser) {
+    throw new Error("Pseudo ou Email déjà utilisé");
   }
-  // création du slug pour le User// 
-  const normalizedUserName = slugify(pseudo, {lower: true, strict: true})
+  // création du slug pour le User//
+  const normalizedUserName = slugify(pseudo, { lower: true, strict: true });
 
-  // hashaage du mot de passe // 
-  const salt = await bcrypt.genSalt(10)
-  const hashedPassword = await.bcrypt.hash(pasword, salt)
+  // hashaage du mot de passe //
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
 
-  // création du nouvel utilisateur // 
+  // création du nouvel utilisateur //
   const newUser = new User({
-    userName: pseudo, 
-    normalizedUserName, 
+    userName: pseudo,
+    normalizedUserName,
     email: lowercaseEmail,
-    password: hashedPassword, 
-
-  })
-  // enregistrer le document // 
-  await newUser.save()
+    password: hashedPassword,
+  });
+  // enregistrer le document //
+  await newUser.save();
 }

@@ -7,15 +7,17 @@
 import express from "express";
 // Import du routeur des pages (routes principales de l'application)
 import pagesRouter from "./routes/pages/index.js";
-// import du Dotenv 
-import dotenv from "dotenv"
+// import du Dotenv
+import dotenv from "dotenv";
 // import de la fonction de connexion à la base de données MongoDB
 import { mongoConnection } from "./utils/db/mongoConnection.js";
 // import du routeur des threads //
 import threadsRouter from "./routes/api/threads.js";
+// import du routeur des Users //
+import authRouter from "./routes/api/auth.js";
 
 // Configuration des variables d'environnement
-dotenv.config()
+dotenv.config();
 // Connexion à la base de données MongoDB
 await mongoConnection();
 // Instanciation de l'application Express
@@ -30,7 +32,7 @@ app.use("/vendor/quill", express.static("node_modules/quill/dist"));
 
 app.use(express.static("public"));
 
-// Configuration du middleware pour parser le corps des requetes JSON // 
+// Configuration du middleware pour parser le corps des requetes JSON //
 app.use(express.json());
 
 // Configuration du moteur de template EJS
@@ -41,9 +43,9 @@ app.set("view engine", "ejs");
 // Le routeur des pages gère toutes les routes principales (racine "/")
 app.use("/", pagesRouter);
 
-
 // Configuration des routes des threads //
 app.use("/api/threads", threadsRouter);
+app.use("/api/auth", authRouter);
 
 // Démarrage du serveur sur le port 3000
 // Le serveur écoute les requêtes HTTP entrantes
