@@ -9,6 +9,8 @@ import express from "express";
 import { getThreadsForHomePage } from "../../services/thread/queries.js";
 // import de la fonction de déconnexion //
 import { logout } from "../../services/auth/actions.js";
+// import du middleware pour rendre la page création de discussion uniquement accessible si l'utilisateur est connecté// 
+import { requireAuthPage } from "../../middlewares/index.js";
 
 // Instanciation de l'objet Router d'Express
 // Permet de définir des routes modulaires qui peuvent être montées dans l'application principale
@@ -29,7 +31,7 @@ router.get("/", async (req, res) => {
 });
 
 // création de la route pour la page d'ajout de discussion //
-router.get("/ajouter-une-discussion", (req, res) => {
+router.get("/ajouter-une-discussion", requireAuthPage, (req, res) => {
   res.render("pages/ajouter-une-discussion");
 });
 

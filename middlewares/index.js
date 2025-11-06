@@ -11,3 +11,11 @@ export function requireAuthApi(req, res, next) {
   }
   next();
 }
+// création d'un middleware pour rendre la page création de discussion uniquement accessible si l'utilisateur est connecté//
+export function requireAuthPage(req, res, next) {
+  if (!req.isLoggedIn) {
+    res.redirect("/connexion");
+    return;
+  }
+  next();
+}
