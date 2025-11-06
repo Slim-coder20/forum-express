@@ -5,6 +5,8 @@
 
 // Import du module Express pour créer le serveur web
 import express from "express";
+// Import de cookie-parser pour gérer les cookies
+import cookieParser from "cookie-parser";
 // Import du routeur des pages (routes principales de l'application)
 import pagesRouter from "./routes/pages/index.js";
 // import du Dotenv
@@ -34,6 +36,10 @@ app.use("/vendor/quill", express.static("node_modules/quill/dist"));
 
 app.use(express.static("public"));
 
+// Configuration du middleware pour parser les cookies //
+// IMPORTANT: cookie-parser doit être configuré AVANT express.json() //
+app.use(cookieParser());
+
 // Configuration du middleware pour parser le corps des requetes JSON //
 app.use(express.json());
 
@@ -49,23 +55,22 @@ app.use("/", pagesRouter);
 app.use("/api/threads", threadsRouter);
 app.use("/api/auth", authRouter);
 
-// Configuration d'un middware pour gérer les erreurs // 
+// Configuration d'un middware pour gérer les erreurs //
 app.use((err, req, res, next) => {
   console.log(err);
 
   // Soit on montre les erreurs au client soit montrer une erreur générique //
-  if(err instanceof BaseError && err.showToClient) {
+  if (err instanceof BaseError && err.showToClient) {
     return res.status(err.statusCode).json({
       error: err.message,
       showToUser: err.showToUser,
     });
     // Sinon on montre une erreur générique //
     return res.status(500).json({
-      error: "Erreur interne du serveur", 
-      
-    })
+      error: "Erreur interne du serveur",
+    });
   }
-})
+});
 
 // Démarrage du serveur sur le port 3000
 // Le serveur écoute les requêtes HTTP entrantes

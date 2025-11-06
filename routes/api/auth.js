@@ -118,14 +118,13 @@ router.post("/signin", async (req, res) => {
 
     // On crée une session pour l'utilisateur //
     const session = await createSession(email, password);
-    console.log("Session créée:", session);
     // On crée un cookie pour la session qui va nous servir a identifier l'utilisateur et nous permettre de faire des requetes authentifiés//
     res.cookie("sessionId", session.sessionId, {
       // le cookie est httpOnly, c'est a dire qu'il ne peut etre accédé que par le serveur //
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
-      maxAge: 7 * 24 * 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
       sameSite: "lax",
     });
     // Désactiver le cache pour éviter les réponses 304 //
