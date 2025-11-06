@@ -68,18 +68,25 @@ export async function createSession(email, password) {
   });
   // Si une session existe déjà on renvoie une erreur //
   let session; // On initialise la session à null //
-  
+
   if (existingSession) {
-    session = existingSession
+    session = existingSession;
   } else {
-    // création de la session // 
-    session = new Session ({
-      userId: user._id, 
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 jours 
+    // création de la session //
+    session = new Session({
+      userId: user._id,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 jours
     });
-    // enregistrement de la session // 
-    await session.save(); 
+    // enregistrement de la session //
+    await session.save();
   }
-  // on retourne la session id en string pour la sécurité // 
-  return {sessionId: session._id.toString()}
+  // on retourne la session id en string pour la sécurité //
+  return { sessionId: session._id.toString() };
+}
+
+// création de la fonction pour la deconnexion //
+export async function logout(sessionId) {
+  // On supprime la session dans le base de données et on supprime le cookie de la session //
+  await Session.findByIdAndDelete(sessionId);
+  return { success: true };
 }

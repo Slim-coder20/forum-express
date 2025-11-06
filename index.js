@@ -57,16 +57,19 @@ app.use(async (req, res, next) => {
    req.isLoggedIn = sessionInfo.isLoggedIn || null;
    req.userId = sessionInfo.userId || null;
    req.userName = sessionInfo.userName || null;
+   req.normalizedUserName = sessionInfo.normalizedUserName || null;
 
    // Changer les vues des pages qu'on retourne du client en fonction de la session// 
    if(req.isLoggedIn) {
     res.locals.isLoggedIn = true;
     res.locals.userId = req.userId;
     res.locals.userName = req.userName;
+    res.locals.normalizedUserName = req.normalizedUserName;
    } else {
     res.locals.isLoggedIn = false;
     res.locals.userId = null;
     res.locals.userName = null;
+    res.locals.normalizedUserName = null;
    }
    // on passe à la suite // 
    next();

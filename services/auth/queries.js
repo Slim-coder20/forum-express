@@ -18,5 +18,10 @@ export async function getSessionInfo(sessionId) {
     return { isLoggedIn: false };
   }
   // si l'utilisateur existe on renvoie true et les informations de l'utilisateur //
-  return { isLoggedIn: true, userId: user._id, userName: user.userName };
+  return { 
+    isLoggedIn: true, 
+    userId: user._id, 
+    userName: user.userName,
+    normalizedUserName: user.normalizedUserName
+  };
 }

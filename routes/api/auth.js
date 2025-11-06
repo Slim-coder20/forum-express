@@ -2,6 +2,8 @@ import express from "express";
 import { createUser } from "../../services/auth/actions.js";
 import { ValidationError } from "../../errors/index.js";
 import { createSession } from "../../services/auth/actions.js";
+import { requireAuthApi } from "../../middlewares/index.js";
+import { logout } from "../../services/auth/actions.js";
 // Création du routeur pour le User //
 const router = express.Router();
 
@@ -142,4 +144,16 @@ router.post("/signin", async (req, res) => {
   }
 });
 
+// création de la route pour la deconnexion : méthode Post
+router.post("/signout", requireAuthApi, async (req, res) => {
+  await logout(req.cookies.sessionId);
+  // Supprimer le cookie coté client //
+  res.clearCookie("sessionId", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    sameSite: "lax",// sécurité contre les attaques : CSRF // 
+  });
+  return res.json({ success: true });
+});
 export default router;
