@@ -1,6 +1,7 @@
 import express from "express";
 import { createThread } from "../../services/thread/actions.js";
 import { ValidationError } from "../../errors/index.js";
+import { requireAuthApi } from "../../middlewares/index.js";
 
 // créationn du routeur pour les threads //
 const router = express.Router();
@@ -8,7 +9,7 @@ const router = express.Router();
 // création de toutes les routes pour les threads : create, get, update, delete //
 
 // create  : méthode POST pour créer une discussion //
-router.post("/create", async (req, res) => {
+router.post("/create", requireAuthApi, async (req, res) => {
   try {
     console.log("create thread");
     // récupération des données du corps de la requete //

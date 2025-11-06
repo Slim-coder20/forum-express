@@ -19,6 +19,12 @@ import threadsRouter from "./routes/api/threads.js";
 import authRouter from "./routes/api/auth.js";
 // import de la classe BaseError //
 import { BaseError } from "./errors/index.js";
+// import de la fonction de récupération des informations de la session //
+import { getSessionInfo } from "./services/auth/queries.js";
+
+
+
+
 
 // Configuration des variables d'environnement
 dotenv.config();
@@ -39,6 +45,32 @@ app.use(express.static("public"));
 // Configuration du middleware pour parser les cookies //
 // IMPORTANT: cookie-parser doit être configuré AVANT express.json() //
 app.use(cookieParser());
+
+// Middleware utilitaire qui va nous permettre de rajouter des informations de session dans la requete et dans le response // 
+app.use(async (req, res, next) => {
+  // récupération de l'id de la session dans le cookie // 
+   const sessionId = req.cookies.sessionId; 
+   // récupération des informations de la session dans la base de données // 
+   const sessionInfo = await getSessionInfo(sessionId); 
+  
+   // req va être accessible dans les routes api // 
+   req.isLoggedIn = sessionInfo.isLoggedIn || null;
+   req.userId = sessionInfo.userId || null;
+   req.userName = sessionInfo.userName || null;
+
+   // Changer les vues des pages qu'on retourne du client en fonction de la session// 
+   if(req.isLoggedIn) {
+    res.locals.isLoggedIn = true;
+    res.locals.userId = req.userId;
+    res.locals.userName = req.userName;
+   } else {
+    res.locals.isLoggedIn = false;
+    res.locals.userId = null;
+    res.locals.userName = null;
+   }
+   // on passe à la suite // 
+   next();
+})
 
 // Configuration du middleware pour parser le corps des requetes JSON //
 app.use(express.json());
