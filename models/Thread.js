@@ -3,6 +3,12 @@ import mongoose from "mongoose";
 // création du schéma de la discussion  //
 const threadSchema = new mongoose.Schema(
   {
+    // Ajout de l'auteur de la discussion //
+    author: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     // titre de la discussion //
     title: {
       type: String,
@@ -30,6 +36,9 @@ const threadSchema = new mongoose.Schema(
   // timestamps: true pour ajouter automatiquement les champs createdAt et updatedAt //
   { timestamps: true }
 );
+
+/* Indexation des champs pour optimiser les requetes */ 
+threadSchema.index({ author: 1});
 
 // création du modèle de la discussion //
 const Thread = mongoose.model("Thread", threadSchema);

@@ -17,7 +17,13 @@ const sessionSchema = new mongoose.Schema({
   },
 });
 
+/* Indexation des champs pour optimiser les requetes */
+sessionSchema.index({userId:1})
+// indexation pour la date d'expiration de la session //
+sessionSchema.index({expiresAt:1},{expireAfterSeconds:0})
+
 // création du model Session //
 const Session = mongoose.model("Session", sessionSchema);
+
 
 export default Session;
