@@ -26,7 +26,7 @@ router.post("/create", requireAuthApi, async (req, res) => {
     ) {
       throw new ValidationError("Titre et contenu sont requis", 400, true);
     }
-    const result = await createThread(title, content);
+    const result = await createThread(title, content, req.userId);
 
     return res
       .status(201)
@@ -34,7 +34,9 @@ router.post("/create", requireAuthApi, async (req, res) => {
   } catch (error) {
     console.error("Erreur lors de la création de la discussion:", error);
     const statusCode = error.statusCode || 500;
-    const message = error.showToUser ? error.message : "Erreur lors de la création de la discussion";
+    const message = error.showToUser
+      ? error.message
+      : "Erreur lors de la création de la discussion";
     return res.status(statusCode).json({ message });
   }
 });

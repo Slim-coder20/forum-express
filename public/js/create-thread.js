@@ -34,6 +34,7 @@ async function handlerCreateThread(e) {
       body: JSON.stringify({
         title: titleInput.value,
         content: quill.root.innerHTML,
+        
       }),
     });
 

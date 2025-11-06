@@ -27,6 +27,8 @@ const postSchema = new mongoose.Schema ({
 
 /* Indexation des champs pour optimiser les requetes */ 
 postSchema.index({ thread: 1, postNumber: 1},{ unique: true });
+// indexation pour la recherche des posts par thread //
+postSchema.index({ thread: 1 });
 
 // création du model du post // 
 const Post = mongoose.model("Post", postSchema);

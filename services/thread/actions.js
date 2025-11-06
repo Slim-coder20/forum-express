@@ -15,7 +15,7 @@ const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
 
 // création de la discussion //
-export async function createThread(threadTitle, firstPostContent) {
+export async function createThread(threadTitle, firstPostContent, userId) {
   // générer le slug //
   const baseSlug = slugify(threadTitle, { lower: true, strict: true });
   // générer le slug unique //
@@ -31,6 +31,7 @@ export async function createThread(threadTitle, firstPostContent) {
   const newThread = new Thread({
     title: threadTitle,
     slug,
+    author: userId,
   });
 
   await newThread.save();
@@ -42,6 +43,7 @@ export async function createThread(threadTitle, firstPostContent) {
     thread: newThread._id,
     HTMLPost,
     postNumber: 1,
+    author: userId,
   });
 
   await newPost.save();
