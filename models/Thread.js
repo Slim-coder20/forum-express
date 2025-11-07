@@ -37,8 +37,9 @@ const threadSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-/* Indexation des champs pour optimiser les requetes */ 
-threadSchema.index({ author: 1});
+/* Indexation des champs pour optimiser les requetes */
+threadSchema.index({ author: 1 });
+// Note: slug a déjà un index unique défini via unique: true dans le schéma
 
 // création du modèle de la discussion //
 const Thread = mongoose.model("Thread", threadSchema);

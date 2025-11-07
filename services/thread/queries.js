@@ -20,13 +20,14 @@ export async function getThreadsPost(currentPage, threadId, userId) {
     .limit(limit)
     .populate("author", "userName")
     .lean();
-
+  // On map les posts pour ajouter des informations supplémentaires //
   const decoratedPost = posts.map((post) => ({
     ...post,
     isOwner: userId && post.author._id.toString() === userId.toString(), // vérification si l'auteur du post est l'utilisateur connecté //
   }));
+  // On retourne les posts décorés et un booléen pour savoir si il y a plus de posts à charger //
   return {
     posts: decoratedPost,
     hasMorePosts: posts.length === limit,
-  }; 
+  };
 }

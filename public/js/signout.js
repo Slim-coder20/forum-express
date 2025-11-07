@@ -6,13 +6,15 @@
 const signoutLinks = document.querySelectorAll(".js-signout-link");
 
 // Vérifier que les liens existent avant d'ajouter les event listeners //
-if (signoutLinks.length > 0) {
+if (signoutLinks.length === 0) {
+  // Certaines pages ne contiennent pas de lien de déconnexion (par exemple si
+  // l'utilisateur n'est pas connecté). Dans ce cas, on ne fait rien pour
+  // éviter les faux positifs dans la console.
+} else {
   // Ajouter un écouteur d'événement à chaque lien de déconnexion //
   signoutLinks.forEach((link) => {
     link.addEventListener("click", handleSignoutClick);
   });
-} else {
-  console.error("Liens de déconnexion non trouvés (.js-signout-link)");
 }
 
 // création de la fonction qui gère le clic sur le lien de déconnexion //
@@ -66,4 +68,3 @@ async function handleSignoutClick(e) {
     window.location.href = "/";
   }
 }
-

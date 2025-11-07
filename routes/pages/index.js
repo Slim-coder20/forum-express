@@ -9,8 +9,12 @@ import express from "express";
 import { getThreadsForHomePage } from "../../services/thread/queries.js";
 // import de la fonction de déconnexion //
 import { logout } from "../../services/auth/actions.js";
-// import du middleware pour rendre la page création de discussion uniquement accessible si l'utilisateur est connecté// 
+// import du middleware pour rendre la page création de discussion uniquement accessible si l'utilisateur est connecté//
 import { requireAuthPage } from "../../middlewares/index.js";
+// import du model de la discussion //
+import Thread from "../../models/Thread.js";
+// import de la fonction pour récupérer les posts d'une discussion //
+import { getThreadsPost } from "../../services/thread/queries.js";
 
 // Instanciation de l'objet Router d'Express
 // Permet de définir des routes modulaires qui peuvent être montées dans l'application principale
@@ -71,6 +75,23 @@ router.get("/deconnexion", async (req, res) => {
     // En cas d'erreur, on redirige quand même vers la page d'accueil //
     res.redirect("/");
   }
+});
+
+// création de la route pour la page de l'affichage d'une discussion //
+router.get("/discussion/:slug", async (req, res) => {
+  const { slug } = req.params;
+
+  const thread = await Thread.findOne({ slug });
+  if (!thread) {
+    return res.status(404).render("page/404");
+  }
+
+  const page = parseInt(req.query.page) || 1 
+  const { posts } =  await getThreadsPost(page, thread._id, req.user?._id)
+  res.render("pages/thread", {
+    thread,
+    posts, 
+  })
 });
 
 // Export du routeur pour qu'il puisse être utilisé dans index.js
