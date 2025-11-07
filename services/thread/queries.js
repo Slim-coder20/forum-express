@@ -14,6 +14,8 @@ export async function getThreadsForHomePage(currentPage) {
 
 // requete pour récuperer les discussion d'un utilisateur //
 export async function getThreadsPost(currentPage, threadId, userId) {
+
+  
   const limit = 10;
   const posts = await Post.find({ thread: threadId })
     .sort({ postNumber: 1 })

@@ -99,5 +99,6 @@ router.get("/404", (req, res) => {
   res.status(404).render("pages/not-found");
 });
 
+
 // Export du routeur pour qu'il puisse être utilisé dans index.js
 export default router;

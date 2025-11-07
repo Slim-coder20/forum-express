@@ -91,15 +91,18 @@ app.use((err, req, res, next) => {
   console.log(err);
 
   // Soit on montre les erreurs au client soit montrer une erreur générique //
-  if (err instanceof BaseError && err.showToClient) {
-    return res.status(err.statusCode).json({
-      error: err.message,
-      showToUser: err.showToUser,
-    });
+  if (req.originalUrl.startsWith("/api")) {
+    if (err instanceof BaseError && err.showToUser) {
+      return res
+        .status(err.statusCode)
+        .json({ message: err.message, showToUser: err.showToUser });
+    }
     // Sinon on montre une erreur générique //
     return res.status(500).json({
-      error: "Erreur interne du serveur",
+      error: "Erreur serveur interne",
     });
+  } else {
+    return res.status(500).render("pages/500");
   }
 });
 
