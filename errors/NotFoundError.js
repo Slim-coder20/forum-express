@@ -10,5 +10,6 @@ export default class NotFoundError extends BaseError {
    */
   constructor(message = "Page non trouvée", status = 404, showToUser = true) {
     super(message, status, showToUser);
+    
   }
 }

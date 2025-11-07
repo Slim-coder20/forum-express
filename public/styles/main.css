@@ -281,6 +281,9 @@
   .justify-between {
     justify-content: space-between;
   }
+  .justify-center {
+    justify-content: center;
+  }
   .gap-4 {
     gap: calc(var(--spacing) * 4);
   }
@@ -326,6 +329,9 @@
   }
   .py-2 {
     padding-block: calc(var(--spacing) * 2);
+  }
+  .py-32 {
+    padding-block: calc(var(--spacing) * 32);
   }
   .py-44 {
     padding-block: calc(var(--spacing) * 44);

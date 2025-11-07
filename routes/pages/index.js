@@ -83,7 +83,7 @@ router.get("/discussion/:slug", async (req, res) => {
 
   const thread = await Thread.findOne({ slug });
   if (!thread) {
-    return res.status(404).render("page/404");
+    return res.status(404).render("pages/not-found");
   }
 
   const page = parseInt(req.query.page) || 1 
@@ -92,6 +92,11 @@ router.get("/discussion/:slug", async (req, res) => {
     thread,
     posts, 
   })
+});
+
+// création de la route pour la page 404 //
+router.get("/404", (req, res) => {
+  res.status(404).render("pages/not-found");
 });
 
 // Export du routeur pour qu'il puisse être utilisé dans index.js

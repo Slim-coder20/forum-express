@@ -1,0 +1,21 @@
+<!-- Ce fichier nous servira a afficher la page 404 lorsque l'utilisateur tentera d'accéder à une page qui n'existe pas -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page non trouvée | Forum Express</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+  </head>
+  <body>
+    <%- include("../partials/navbar.ejs") %>
+    <div class="u-main-container py-32 flex flex-col items-center justify-center">
+      <h1 class="text-4xl mb-2">Page non trouvée</h1>
+      <p class="mb-10">
+        La page que vous cherchez n'existe pas.
+      </p>
+      <a href="/" class="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700">Retour à la page d'accueil</a>
+    </div>
+    <script src="/js/signout.js"></script>
+  </body>
+</html>
