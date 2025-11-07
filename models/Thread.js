@@ -27,6 +27,10 @@ const threadSchema = new mongoose.Schema(
       type: Number,
       default: 1,
     },
+    nextPostNumber:{
+      type: Number, 
+      default: 1
+    }, 
     // date de la dernière publication //
     lastPostAt: {
       type: Date,

@@ -24,8 +24,7 @@
       <% if(posts && posts.length > 0) { %>
       <ul class="js-posts-list mb-5">
         <% posts.forEach(post => { %>
-        <li id="" <%="post._id" %>
-          class="border p-6 rounded mb-3">
+        <li id="<%= post._id %>" class="border p-6 rounded mb-3">
           <div class="flex items-center mb-6">
             <div class="flex flex-col mr-auto">
               <span class="text-base font-semibold text-gray-100"
@@ -62,8 +61,12 @@
       </div>
     </div>
     <script src="/vendor/quill/quill.js"></script>
-    <script>
-      const addPostQuill = new Quill("#add-post-editor", { theme: "snow" });
+    <script id="thread-config" type="application/json">
+      <%- JSON.stringify({
+        isLogged: !!isLoggedIn,
+        threadSlug: thread.slug,
+      }) %>
     </script>
+    <script src="/js/thread.js"></script>
 
 </html>

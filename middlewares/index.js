@@ -1,5 +1,5 @@
 // Ce fichier va nous permettre de créer des middlewares pour les routes api //
-
+import { AuthenticationError } from "../errors/index.js";
 export function requireAuthApi(req, res, next) {
   if (!req.isLoggedIn) {
     console.log("User not logged in");
