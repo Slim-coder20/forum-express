@@ -7,7 +7,9 @@ import { ValidationError } from "../../errors/index.js";
 import { JSDOM } from "jsdom";
 import createDOMPurify from "dompurify";
 
+// création de la fenêtre de l'objet JSDOM //
 const window = new JSDOM("").window;
+// création de l'objet DOMPurify avec la fenêtre JSDOM //
 const DOMPurify = createDOMPurify(window);
 
 export async function addNewPostInThread(slug, postContent, userId) {
@@ -50,4 +52,20 @@ export async function deletePostInThread(post) {
   });
   // On récupère le thread //
   return { message: "Post supprimé avec succès" };
+}
+
+// Fonction pour mettre à jour un post dans une discussion //
+export async function updatePostInThread(post, newContent) {
+  // Sanitize du nouveau contenu pour éviter les attaques XSS //
+  const HTMLPost = DOMPurify.sanitize(newContent);
+
+  // Mise à jour du post avec le contenu nettoyé //
+  const updatedPost = await Post.findByIdAndUpdate(
+    post._id,
+    { HTMLPost },
+    { new: true }
+  );
+
+  // Retour du post mis à jour //
+  return updatedPost;
 }
