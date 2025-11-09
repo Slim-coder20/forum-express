@@ -94,7 +94,6 @@ async function handleDeleteBtnClick(e) {
 
   try {
     const response = await fetch(`/api/post/${postId}`, {
-      
       method: "DELETE",
     });
     console.log(response);
@@ -105,4 +104,34 @@ async function handleDeleteBtnClick(e) {
     console.error("Erreur lors de la suppression du post:", error);
     infoMessage.textContent = "Erreur, rééssayer plus tard.";
   }
+}
+
+// Afficher l'éditeur de modification de post //
+const quillEditors = new Map();
+
+const openEditBoxBtns = document.querySelectorAll(".js-open-edit-btn");
+openEditBoxBtns.forEach((btn) => btn.addEventListener("click", openEditBox));
+
+// On créé la fonction openEditBox //
+function openEditBox(e) {
+  const postId = e.currentTarget.dataset.id;
+  const liPost = document.getElementById(postId);
+  const editContent = liPost.querySelector(".js-edit-post-box");
+  const postContent = liPost.querySelector(".js-post-content");
+
+  postContent.classList.add("hidden");
+  editContent.classList.remove("hidden");
+}
+/* Fermer l'éditeur de post  */
+const closeEditBoxBtns = document.querySelectorAll(".js-hide-edit-post-box");
+closeEditBoxBtns.forEach((btn) => btn.addEventListener("click", closeEditBox));
+
+/*création de la fonction de fermeture de l'éditeur de post  */
+
+function closeEditBox(e) {
+  const liPost = document.getElementById(
+    e.currentTarget.getAttribute("data-id")
+  );
+  liPost.querySelector(".js-edit-post-box").classList.add("hidden");
+  liPost.querySelector(".js-post-content").classList.remove("hidden");
 }

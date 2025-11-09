@@ -58,6 +58,15 @@
             <div class="js-post-edit-content text-lg mb-4">
               <%- post.HTMLPost %>
             </div>
+            <!--Contenu du post modifié dans l'éditeur -->
+            <div class="js-edit-post-box hidden">
+              <!--Editeur Quill -->
+              <div class="mb-4">
+                <button class="js-hide-edit-post-box c-btn bg-yellow-500 text-slate-900" data-id="<%= post._id %>"> ❌ Fermer</button>
+                <button class="js-save-edit-btn c-btn bg-green-700 text-white" data-id="<%= post._id %>"> 💾 Enregister</button>
+              </div>
+              <p class="js-upadte-server-info"></p>
+            </div>
         </li>
         <% }) %>
       </ul>
