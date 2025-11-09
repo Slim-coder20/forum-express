@@ -21,6 +21,10 @@ import authRouter from "./routes/api/auth.js";
 import { BaseError } from "./errors/index.js";
 // import de la fonction de récupération des informations de la session //
 import { getSessionInfo } from "./services/auth/queries.js";
+// import du routeur des posts //
+import postRouter from "./routes/api/post.js";
+
+
 
 // Configuration des variables d'environnement
 dotenv.config();
@@ -85,6 +89,7 @@ app.use("/", pagesRouter);
 // Configuration des routes des threads //
 app.use("/api/threads", threadsRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/post", postRouter);
 
 // Configuration d'un middware pour gérer les erreurs //
 app.use((err, req, res, next) => {

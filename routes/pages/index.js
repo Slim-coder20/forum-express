@@ -86,8 +86,8 @@ router.get("/discussion/:slug", async (req, res) => {
     return res.status(404).render("pages/not-found");
   }
 
-  const page = parseInt(req.query.page) || 1 
-  const { posts } =  await getThreadsPost(page, thread._id, req.user?._id)
+  const page = parseInt(req.query.page, 10) || 1;
+  const { posts } = await getThreadsPost(page, thread._id, req.userId);
   res.render("pages/thread", {
     thread,
     posts, 

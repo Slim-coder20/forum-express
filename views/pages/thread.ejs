@@ -23,23 +23,41 @@
       <h1 class="text-3xl font-bold mb-4"><%= thread.title %></h1>
       <% if(posts && posts.length > 0) { %>
       <ul class="js-posts-list mb-5">
+        <!-- Boucle pour afficher tous les posts -->
         <% posts.forEach(post => { %>
+        <!-- Contenu du post -->
         <li id="<%= post._id %>" class="border p-6 rounded mb-3">
+          <!-- Auteur et date de création du post -->
           <div class="flex items-center mb-6">
+            <!-- Contenu du post -->
             <div class="flex flex-col mr-auto">
+              <!-- Auteur du post -->
               <span class="text-base font-semibold text-gray-100"
                 ><%= post.author.userName %>
               </span>
+              <!-- Date de création du post -->
               <span class="text-sm text-gray-400 mr-4">
                 Le <%= new Date(post.createdAt).toLocaleDateString("fr-FR") %> à
                 <%= new Date(post.createdAt).toLocaleTimeString("fr-FR", { hour:
                 "2-digit", minute: "2-digit"}) %>
               </span>
             </div>
+            <!-- Bouton pour modifier et supprimer le post si l'utilisateur est le créateur du post -->
+            <% if(post.isOwner) { %> 
+              <div>
+                  <button class="js-open-edit-btn c-btn bg-blue-800" data-id="<%= post._id %>">Modifier</button>
+                  <button class="js-delete-btn c-btn bg-red-700" data-id="<%= post._id %>">Supprimer</button>
+              </div>
+              <% } %>
           </div>
-          <div class="js-post-content text-lg mb-4">
-            <%- post.HTMLPost %>
-          </div>
+          <!-- Contenu du post -->
+            <div class="js-post-content text-lg mb-4">
+              <%- post.HTMLPost %>
+            </div>
+            <!-- Contenu du post modifié -->
+            <div class="js-post-edit-content text-lg mb-4">
+              <%- post.HTMLPost %>
+            </div>
         </li>
         <% }) %>
       </ul>

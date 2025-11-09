@@ -58,17 +58,51 @@ async function handleCreatePost(e) {
         content: addPostQuill.root.innerHTML,
       }),
     });
-    // vérification que la requête a réussi // 
+    // vérification que la requête a réussi //
     if (!response.ok) throw new Error("Erreur Serveur");
     const data = await response.json();
-    // récupération du nombre de pages et de l'id du post // 
+    // récupération du nombre de pages et de l'id du post //
     const targetPage = data?.lastPage ?? 1;
     const anchorId = data?.post?._id;
-    // récupération du token de rafraîchissement // 
+    // récupération du token de rafraîchissement //
     const refreshToken = Date.now();
-    // redirection vers la page de la discussion avec le nombre de pages et l'id du post // 
-    window.location.href = `${location.pathname}?page=${targetPage}&refresh=${refreshToken}${anchorId ? `#${anchorId}` : ""}`;
+    // redirection vers la page de la discussion avec le nombre de pages et l'id du post //
+    window.location.href = `${
+      location.pathname
+    }?page=${targetPage}&refresh=${refreshToken}${
+      anchorId ? `#${anchorId}` : ""
+    }`;
   } catch (error) {
     console.error("Erreur lors de l'ajout du post:", error);
     infoMessage.textContent = "Erreur, rééssayer plus tard.";
   }
+}
+
+// Gestion de la suppression de post coté client //
+const deletePostBtns = document.querySelectorAll(".js-delete-btn");
+
+// écouteur d'évenement pour la suppression de post //
+deletePostBtns.forEach((btn) =>
+  btn.addEventListener("click", handleDeleteBtnClick)
+);
+
+// fonction de gestion de la suppression de post //
+async function handleDeleteBtnClick(e) {
+  e.preventDefault();
+  // récupération de l'id du post //
+  const postId = e.currentTarget.dataset.id;
+
+  try {
+    const response = await fetch(`/api/post/${postId}`, {
+      
+      method: "DELETE",
+    });
+    console.log(response);
+    if (response.ok) {
+      document.getElementById(postId).remove();
+    }
+  } catch (error) {
+    console.error("Erreur lors de la suppression du post:", error);
+    infoMessage.textContent = "Erreur, rééssayer plus tard.";
+  }
+}

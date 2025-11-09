@@ -39,3 +39,15 @@ export async function addNewPostInThread(slug, postContent, userId) {
   // On retourne le nouveau post et le nombre de pages //
   return { newPost, lastPage };
 }
+
+// fonction pour supprimer un post //
+export async function deletePostInThread(post) {
+  // On supprime le post //
+  await Post.findByIdAndDelete(post._id);
+  // On décrémente le nombre de posts dans le thread //
+  await Thread.findByIdAndUpdate(post.thread, {
+    $inc: { postCount: -1 },
+  });
+  // On récupère le thread //
+  return { message: "Post supprimé avec succès" };
+}

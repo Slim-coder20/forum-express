@@ -40,7 +40,7 @@
   }
 
   .ql-editor {
-    @apply min-h-[200px];
+    @apply min-h-[200px] text-lg;
   }
 
   .ql-container:focus-within {
