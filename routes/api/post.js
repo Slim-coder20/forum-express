@@ -20,7 +20,7 @@ router.delete("/:id/", requireAuthApi, async (req, res) => {
     if (!post) throw new ValidationError("Post introuvable", 404);
 
     // Vérification si l'utilisateur est connecté //
-    if(!req.userId) throw new ValidationError("Action interdite ", 403);
+    if (!req.userId) throw new ValidationError("Action interdite ", 403);
 
     // Vérification si l'utilisateur connecté est celui qui a créer le post //
     if (post.author.toString() !== req.userId.toString()) {
@@ -41,7 +41,6 @@ router.delete("/:id/", requireAuthApi, async (req, res) => {
     return res.status(statusCode).json({ message });
   }
 });
-
 
 // update : méthode PATCH pour mettre à jour un post //
 router.patch("/:id/", requireAuthApi, async (req, res) => {
