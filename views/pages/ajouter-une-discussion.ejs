@@ -4,35 +4,57 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ajouter une discussion | Forum Express</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/vendor/quill/quill.snow.css" />
     <link rel="stylesheet" href="/styles/main.css" />
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <div class="u-main-container pt-32">
-      <h1 class="text-4xl mb-2">Créer une discussion</h1>
-      <p class="mb-10">
-        Cette nouvelle discssion apparaîtra dans la page principale.
-      </p>
-      <form class="js-thread-form" method="POST" action="/api/threads/create">
-        <div class="mb-10">
-          <label for="thread" class="f-label mb-3"
-            >Titre de la discussion</label
-          >
-          <input
-            type="text"
-            class="js-title-input f-input"
-            id="thread"
-            name="thread"
-            required
-          />
+    <main class="page-shell">
+      <section class="u-main-container">
+        <div class="section-heading">
+          <h1 class="section-heading__title">Créer une nouvelle discussion</h1>
+          <p class="section-heading__subtitle">
+            Donnez un titre inspirant et lancez le premier message pour inviter
+            la communauté à réagir.
+          </p>
         </div>
-        <p class="mb-2">Premier message de la discussion</p>
-        <div id="editor"></div>
-        <button class="c-btn mt-4 mb-3">Créer une discussion</button>
-        <p class="js-create-thread-info"></p>
-      </form>
-    </div>
+        <div class="info-banner mb-6">
+          <span>✍️</span>
+          <p>
+            Astuce : un titre clair et une intro concise augmentent vos chances
+            d’obtenir des réponses.
+          </p>
+        </div>
+        <form
+          class="js-thread-form surface-card"
+          method="POST"
+          action="/api/threads/create"
+        >
+          <div class="mb-6">
+            <label for="thread" class="f-label">Titre de la discussion</label>
+            <input
+              type="text"
+              class="js-title-input f-input"
+              id="thread"
+              name="thread"
+              required
+            />
+          </div>
+          <div class="mb-6">
+            <p class="f-label">Premier message de la discussion</p>
+            <div id="editor"></div>
+          </div>
+          <button class="c-btn mt-4">Créer une discussion</button>
+          <p class="js-create-thread-info text-link"></p>
+        </form>
+      </section>
+    </main>
     <script src="/vendor/quill/quill.js"></script>
     <script src="/js/create-thread.js"></script>
     <script src="/js/signout.js"></script>

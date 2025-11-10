@@ -3,44 +3,122 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/main.css" /> 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/main.css" />
     <title>Forum Express</title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <div class="u-main-container pt-32 pb-44">
-      <h1 class="text-2xl mb-8">Explorer les dernières discussions 📢</h1>
-      <% if(threads && threads.length > 0 ) { %>
-      <ul class="js-threads-list space-y-4">
-        <% threads.forEach(thread => { %>
-        <li
-          class="flex items-baseline border border-gray-400 p-5 rounded hover:bg-zinc-800"
-        >
-          <a
-            href="/discussion/<%= thread.slug %>?page=1"
-            class="text-lg text-gray-200 underline underline-offset-4 truncate"
-          >
-            <%= thread.title %>
+    <main class="page-shell">
+      <section class="u-main-container hero">
+        <div>
+          <span class="hero__eyebrow"> 🔥 Tendances de la communauté </span>
+          <h1 class="hero__title">
+            Rejoignez les conversations qui font vibrer la tech francophone.
+          </h1>
+          <p class="hero__description">
+            Partagez vos questions, découvrez des idées inspirantes et
+            construisez votre réseau avec des passionnés du développement et du
+            produit.
+          </p>
+          <div class="hero__actions">
+            <% if(isLoggedIn) { %>
+            <a href="/ajouter-une-discussion" class="c-btn">
+              Lancer une discussion
+            </a>
+            <a
+              href="/mon-profil/<%= normalizedUserName %>"
+              class="c-btn c-btn--ghost"
+            >
+              Voir mon profil
+            </a>
+            <% } else { %>
+            <a href="/inscription" class="c-btn"> Créer un compte gratuit </a>
+            <a href="/connexion" class="c-btn c-btn--ghost"> Se connecter </a>
+            <% } %>
+          </div>
+        </div>
+        <div class="surface-card">
+          <div class="info-banner mb-4">
+            <span>💡</span>
+            <p>
+              Astuce : suivez vos discussions favorites pour ne rien manquer.
+            </p>
+          </div>
+          <div class="thread-meta">
+            <span class="thread-meta__label">En ce moment :</span>
+            <span class="badge">
+              <%= threads ? threads.length : 0 %> discussions actives
+            </span>
+          </div>
+        </div>
+      </section>
+      <section class="u-main-container">
+        <div class="section-heading">
+          <h2 class="section-heading__title">
+            Explorer les dernières discussions
+          </h2>
+          <p class="section-heading__subtitle">
+            Retrouvez les sujets qui viennent d’être relancés par la communauté.
+            Rejoignez les échanges ou lancez votre propre fil de discussion.
+          </p>
+        </div>
+        <% if(threads && threads.length > 0 ) { %>
+        <ul class="js-threads-list threads-grid">
+          <% threads.forEach(thread => { %>
+          <li class="thread-card">
+            <a
+              href="/discussion/<%= thread.slug %>?page=1"
+              class="thread-card__title"
+            >
+              <%= thread.title %>
+            </a>
+            <div class="thread-card__meta">
+              <span class="thread-card__author">
+                👤 <%= thread.author.userName %>
+              </span>
+              <span class="thread-card__divider"></span>
+              <span class="pill">
+                💬 <%= thread.postCount %> post<%= thread.postCount > 1 ? "s" :
+                "" %>
+              </span>
+              <span class="thread-card__divider"></span>
+              <span>
+                Dernière activité
+                <strong>
+                  <%= new Date(thread.updatedAt).toLocaleDateString("fr-FR", {
+                  day: "2-digit", month: "short" }).replace(".", "") %>
+                </strong>
+                à
+                <strong>
+                  <%= new Date(thread.updatedAt).toLocaleTimeString("fr-FR", {
+                  hour: "2-digit", minute: "2-digit" }) %>
+                </strong>
+              </span>
+            </div>
+          </li>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <div class="empty-state">
+          <div class="empty-state__icon">📭</div>
+          <p>Aucune discussion pour le moment.</p>
+          <% if(isLoggedIn) { %>
+          <a href="/ajouter-une-discussion" class="c-btn">
+            Créer la première discussion
           </a>
-          <span class="mr-auto ml-2 text-sm text-gray-100 truncate">
-            - Créer par <%= thread.author.userName %></span
-          >
-          <span class="text-sm text-gray-200 truncate">
-            Post(s) : <%= thread.postCount %> -&nbsp;
-          </span>
-          <span class="text-sm text-gray-400 truncate">
-            Dernier message <%= new
-            Date(thread.updatedAt).toLocaleDateString("fr-FR") %> à <%= new
-            Date(thread.updatedAt).toLocaleTimeString("fr-FR", {hour: "2-digit",
-            minute: "2-digit"}) %>
-          </span>
-        </li>
-        <% }) %>
-      </ul>
-      <% } else { %>
-      <p class="mt-8">Aucune discussion pour le moment</p>
-      <% } %>
-    </div>
+          <% } else { %>
+          <a href="/inscription" class="c-btn"> Rejoindre la communauté </a>
+          <% } %>
+        </div>
+        <% } %>
+      </section>
+    </main>
     <script src="/js/signout.js"></script>
   </body>
 </html>

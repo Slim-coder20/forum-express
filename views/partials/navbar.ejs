@@ -1,47 +1,24 @@
-<nav class="fixed top-0 w-full bg-blue-600 text-white p-4">
-  <div class="u-main-container flex justify-between items-center">
-    <a href="/" class="text-xl font-bold">ForumExpres</a>
-    <ul class="flex items-center gap-4">
-      <!-- Liens affichés si l'utilisateur est connecté -->
+<nav class="nav-shell">
+  <div class="u-main-container nav-shell__inner">
+    <a href="/" class="nav-brand">
+      <span class="nav-brand__dot"></span>
+      ForumExpress
+    </a>
+    <div class="nav-links">
       <% if(isLoggedIn) { %>
-      <li>
-        <a
-          href="/ajouter-une-discussion"
-          class="text-white hover:bg-blue-700 rounded px-4 py-2"
-          >Ajouter une discussion</a
-        >
-      </li>
-      <li>
-        <a
-          href="/deconnexion"
-          class="js-signout-link text-white hover:bg-blue-700 rounded px-4 py-2"
-          >Déconnexion</a
-        >
-      </li>
-      <li>
-        <a
-          href="/mon-profil/<%= normalizedUserName %>"
-          class="text-white hover:bg-blue-700 rounded px-4 py-2"
-          ><%= userName %></a
-        >
-      </li>
+      <a href="/ajouter-une-discussion" class="nav-link nav-link--primary">
+        + Nouvelle discussion
+      </a>
+      <a href="/deconnexion" class="nav-link js-signout-link"> Déconnexion </a>
+      <a href="/mon-profil/<%= normalizedUserName %>" class="nav-avatar">
+        <span class="pill"> <%= userName %> </span>
+      </a>
       <% } else { %>
-      <!-- Liens affichés si l'utilisateur n'est pas connecté -->
-      <li>
-        <a
-          href="/connexion"
-          class="text-white hover:bg-blue-700 rounded px-4 py-2"
-          >Connexion</a
-        >
-      </li>
-      <li>
-        <a
-          href="/inscription"
-          class="text-white hover:bg-blue-700 rounded px-4 py-2"
-          >Inscription</a
-        >
-      </li>
+      <a href="/connexion" class="nav-link"> Connexion </a>
+      <a href="/inscription" class="nav-link nav-link--primary">
+        Créer un compte
+      </a>
       <% } %>
-    </ul>
+    </div>
   </div>
 </nav>

@@ -4,44 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion | Forum Expree</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles/main.css" />
   </head>
-  <body class="pt-40">
+  <body>
     <%- include("../partials/navbar.ejs") %>
-    <form
-      action=""
-      method="post"
-      class="js-signin-form max-w-md mx-auto px-8 pt-8 pb-10 border border-gray-400 rounded"
-    >
-      <p class="text-2xl text-center mb-8">Connexion</p>
-      <div class="mb-4">
-        <label for="email" class="f-label mb-2">Votre email</label>
-        <input
-          type="text"
-          class="f-input"
-          id="email"
-          name="email"
-          autocomplete="email"
-          required
-          maxlength="254"
-        />
-      </div>
-      <div class="mb-14">
-        <label for="password" class="f-label mb-2">Mot de passe</label>
-        <input
-          type="password"
-          class="f-input"
-          id="password"
-          name="password"
-          autocomplete="current-password"
-          required
-          minlength="6"
-          maxlength="72"
-        />
-      </div>
-      <button class="c-btn w-full mb-3">Se connecter</button>
-      <P class="js-server-info"></P>
-    </form>
+    <main class="page-shell">
+      <section class="form-shell">
+        <form action="" method="post" class="js-signin-form form-card">
+          <header>
+            <p class="form-card__title">Connexion</p>
+            <p class="form-card__subtitle">
+              Heureux de vous revoir ! Reprenez vos discussions en un clin
+              d’œil.
+            </p>
+          </header>
+          <div>
+            <label for="email" class="f-label">Votre email</label>
+            <input
+              type="text"
+              class="f-input"
+              id="email"
+              name="email"
+              autocomplete="email"
+              required
+              maxlength="254"
+            />
+          </div>
+          <div>
+            <label for="password" class="f-label">Mot de passe</label>
+            <input
+              type="password"
+              class="f-input"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              required
+              minlength="6"
+              maxlength="72"
+            />
+          </div>
+          <button class="c-btn w-full">Se connecter</button>
+          <p class="form-card__footer">
+            Pas encore de compte ?
+            <a href="/inscription" class="text-link">Inscription</a>
+          </p>
+          <p class="js-server-info"></p>
+        </form>
+      </section>
+    </main>
     <script src="/js/signin.js"></script>
     <script src="/js/signout.js"></script>
   </body>

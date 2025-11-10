@@ -3,24 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles/main.css" />
     <title>Erreur 500 | Forum Express</title>
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <div
-      class="u-main-container pt-32 flex flex-col items-center justify-center"
-    >
-      <h1 class="text-4xl mb-2">Erreur 500</h1>
-      <p class="mb-10">
-        Une erreur a eu lieu reesayer plus tard ou conatctez le site
-      </p>
-      <a
-        href="/"
-        class="text-white bg-blue-600 px-4 py-2 rounded hover:bg-blue-700"
-        >Retour à la page d'accueil</a
-      >
-    </div>
+    <main class="page-shell">
+      <section class="u-main-container">
+        <div class="empty-state">
+          <div class="empty-state__icon">🚧</div>
+          <h1 class="section-heading__title">Erreur 500</h1>
+          <p>
+            Une erreur est survenue. Réessayez dans quelques instants ou
+            contactez l’équipe du forum si le problème persiste.
+          </p>
+          <a href="/" class="c-btn max-w-fit mx-auto">Retour à l’accueil</a>
+        </div>
+      </section>
+    </main>
     <script src="/js/signout.js"></script>
   </body>
 </html>

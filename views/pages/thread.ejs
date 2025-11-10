@@ -11,98 +11,121 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Discussion | Forum Express - <%= thread.title %></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles/main.css" />
     <link rel="stylesheet" href="/vendor/quill/quill.snow.css" />
   </head>
   <body>
     <%- include("../partials/navbar.ejs") %>
-    <div class="u-main-container py-44">
-      <div class="mb-8">
-        <a href="/" class="text-blue-300">&larr; Retour au forum</a>
-      </div>
-      <h1 class="text-3xl font-bold mb-4"><%= thread.title %></h1>
-      <% if(posts && posts.length > 0) { %>
-      <ul class="js-posts-list mb-5">
-        <!-- Boucle pour afficher tous les posts -->
-        <% posts.forEach(post => { %>
-        <!-- Contenu du post -->
-        <li id="<%= post._id %>" class="border p-6 rounded mb-3">
-          <!-- Auteur et date de création du post -->
-          <div class="flex items-center mb-6">
-            <!-- Contenu du post -->
-            <div class="flex flex-col mr-auto">
-              <!-- Auteur du post -->
-              <span class="text-base font-semibold text-gray-100"
-                ><%= post.author.userName %>
-              </span>
-              <!-- Date de création du post -->
-              <span class="text-sm text-gray-400 mr-4">
-                Le <%= new Date(post.createdAt).toLocaleDateString("fr-FR") %> à
-                <%= new Date(post.createdAt).toLocaleTimeString("fr-FR", { hour:
-                "2-digit", minute: "2-digit"}) %>
-              </span>
-            </div>
-            <!-- Bouton pour modifier et supprimer le post si l'utilisateur est le créateur du post -->
-            <% if(post.isOwner) { %> 
-              <div>
-                  <button class="js-open-edit-btn c-btn bg-blue-800" data-id="<%= post._id %>">Modifier</button>
-                  <button class="js-delete-btn c-btn bg-red-700" data-id="<%= post._id %>">Supprimer</button>
-              </div>
-              <% } %>
+    <main class="page-shell">
+      <section class="u-main-container">
+        <div class="section-heading">
+          <a href="/" class="text-link">&larr; Retour au forum</a>
+          <h1 class="section-heading__title"><%= thread.title %></h1>
+          <div class="thread-meta">
+            <span class="pill">
+              💬 <%= posts ? posts.length : 0 %> réponse<%= posts && posts.length > 1 ? "s" : "" %>
+            </span>
+            <span class="thread-card__divider"></span>
+            <span>
+              Dernière mise à jour
+              <strong>
+                <%= new Date(thread.updatedAt).toLocaleDateString("fr-FR", {
+                  day: "2-digit",
+                  month: "short"
+                }).replace(".", "") %>
+              </strong>
+              à
+              <strong>
+                <%= new Date(thread.updatedAt).toLocaleTimeString("fr-FR", {
+                  hour: "2-digit",
+                  minute: "2-digit"
+                }) %>
+              </strong>
+            </span>
           </div>
-          <!-- Contenu du post -->
-            <div class="js-post-content text-lg mb-4">
-              <%- post.HTMLPost %>
-            </div>
-            <!-- Contenu du post modifié -->
-            <div class="js-post-edit-content text-lg mb-4">
-              <%- post.HTMLPost %>
-            </div>
-            <!--Contenu du post modifié dans l'éditeur -->
-            <div class="js-edit-post-box hidden">
-              <!--Editeur Quill -->
-              <div class="mb-4">
-                <button class="js-hide-edit-post-box c-btn bg-yellow-500 text-slate-900" data-id="<%= post._id %>"> ❌ Fermer</button>
-                <button class="js-save-edit-btn c-btn bg-green-700 text-white" data-id="<%= post._id %>"> 💾 Enregister</button>
-              </div>
-              <p class="js-upadte-server-info"></p>
-            </div>
-        </li>
-        <% }) %>
-      </ul>
-
-      <% } else { %>
-      <p class="mb-5">Aucun post dans cette page</p>
-      <% } %>
-        <!--Pagination -->
-        <ul class="flex gap-2">
+        </div>
+        <% if(posts && posts.length > 0) { %>
+          <ul class="js-posts-list threads-grid posts-grid">
+            <% posts.forEach(post => { %>
+              <li id="<%= post._id %>" class="post-card">
+                <header class="post-card__header">
+                  <div class="post-card__avatar">
+                    <%= post.author.userName.slice(0, 1).toUpperCase() %>
+                  </div>
+                  <div class="mr-auto">
+                    <p class="post-card__author"><%= post.author.userName %></p>
+                    <p class="post-card__timestamp">
+                      Le <%= new Date(post.createdAt).toLocaleDateString("fr-FR") %> à
+                      <%= new Date(post.createdAt).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit"}) %>
+                    </p>
+                  </div>
+                  <% if(post.isOwner) { %> 
+                    <div class="post-card__actions">
+                      <button class="js-open-edit-btn c-btn c-btn--secondary" data-id="<%= post._id %>">Modifier</button>
+                      <button class="js-delete-btn c-btn c-btn--danger" data-id="<%= post._id %>">Supprimer</button>
+                    </div>
+                  <% } %>
+                </header>
+                <div class="js-post-content post-card__content">
+                  <%- post.HTMLPost %>
+                </div>
+                <div class="js-post-edit-content post-card__content">
+                  <%- post.HTMLPost %>
+                </div>
+                <div class="js-edit-post-box hidden post-card__editor">
+                  <div class="post-card__actions">
+                    <button class="js-hide-edit-post-box c-btn c-btn--ghost" data-id="<%= post._id %>">❌ Fermer</button>
+                    <button class="js-save-edit-btn c-btn" data-id="<%= post._id %>">💾 Enregistrer</button>
+                  </div>
+                  <p class="js-upadte-server-info text-link"></p>
+                </div>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <div class="empty-state mb-8">
+            <div class="empty-state__icon">📝</div>
+            <p>Aucun post dans cette discussion pour le moment.</p>
+          </div>
+        <% } %>
+        <ul class="pagination">
           <% pagesToShow.forEach(p  => { %> 
-           <% if (p === "...") { %> 
-            <li><span>...</span></li>
+            <% if (p === "...") { %> 
+              <li class="pagination__item"><span>...</span></li>
             <% } else { %> 
-              <li>
+              <li class="pagination__item">
                 <a href="?page=<%= p %>"
-                  class="c-transparent-btn <%= p === page ? 'bg-gray-50 text-gray-800' : '' %>"
+                  class="c-transparent-btn <%= p === page ? 'pagination__item--active' : '' %>"
                 >
                   <%= p %>
                 </a>
               </li>
-              <% } %> 
+            <% } %> 
           <% }) %> 
         </ul>
-      <div class="mt-10">
-        <p class="mb-2">
-          Ajouter un message à cette discussion
-          <form class="js-add-post-form mb-2">
+        <section class="surface-card mt-10">
+          <header class="section-heading">
+            <h2 class="section-heading__title">Ajouter un message</h2>
+            <p class="section-heading__subtitle">
+              Partagez votre point de vue pour faire avancer la conversation.
+            </p>
+          </header>
+          <form class="js-add-post-form">
             <div class="mb-5">
               <div id="add-post-editor"></div>
             </div>
             <button class="c-btn max-w-fit">Ajouter un message</button>
           </form>
-          <p class="js-add-post-server-info"></p>
-        </p>
-      </div>
-    </div>
+          <p class="js-add-post-server-info text-link"></p>
+        </section>
+      </section>
+    </main>
     <script src="/vendor/quill/quill.js"></script>
     <script id="thread-config" type="application/json">
       <%- JSON.stringify({

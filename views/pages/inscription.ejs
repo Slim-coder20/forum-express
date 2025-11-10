@@ -4,71 +4,87 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inscription | Forum Express</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles/main.css" />
   </head>
-  <body class="pt-40">
+  <body>
     <%- include("../partials/navbar.ejs") %>
 
-    <form
-      action=""
-      method="post"
-      class="js-signup-form max-w-md mx-auto px-8 pt-8 pb-10 border border-gray-400 rounded"
-    >
-      <p class="text-2xl text-center mb-8">Inscription</p>
-      <div class="mb-4">
-        <label for="pseudo" class="f-label mb-2">Votre pseudo</label>
-        <input
-          type="text"
-          class="f-input"
-          id="pseudo"
-          name="pseudo"
-          minlength="3"
-          maxlength="30"
-          required
-        />
-      </div>
-      <div class="mb-4">
-        <label for="email" class="f-label mb-2">Votre email</label>
-        <input
-          type="email"
-          class="f-input"
-          id="email"
-          name="email"
-          maxlength="254"
-          autocomplete="email"
-          required
-        />
-      </div>
-      <div class="mb-4">
-        <label for="password" class="f-label">Votre mot de passe </label>
+    <main class="page-shell">
+      <section class="form-shell">
+        <form action="" method="post" class="js-signup-form form-card">
+          <header>
+            <p class="form-card__title">Inscription</p>
+            <p class="form-card__subtitle">
+              Quelques secondes suffisent pour rejoindre les discussions et
+              partager vos idées.
+            </p>
+          </header>
+          <div>
+            <label for="pseudo" class="f-label">Votre pseudo</label>
+            <input
+              type="text"
+              class="f-input"
+              id="pseudo"
+              name="pseudo"
+              minlength="3"
+              maxlength="30"
+              required
+            />
+          </div>
+          <div>
+            <label for="email" class="f-label">Votre email</label>
+            <input
+              type="email"
+              class="f-input"
+              id="email"
+              name="email"
+              maxlength="254"
+              autocomplete="email"
+              required
+            />
+          </div>
+          <div>
+            <label for="password" class="f-label">Votre mot de passe</label>
 
-        <input
-          type="password"
-          class="f-input"
-          id="password"
-          name="password"
-          autocomplete="new-password"
-          required
-          minlength="6"
-          maxlength="72"
-          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,72}$"
-        />
-      </div>
-      <div class="mb-12">
-        <label for="repeatedPassword" class="f-label"
-          >Confirmez votre mot passe</label
-        >
-        <input
-          type="password"
-          class="f-input"
-          id="repeatedPassword"
-          name="repeatedPassword"
-          required
-        />
-      </div>
-      <button class="c-btn w-full mb-5">Créer un compte</button>
-      <p class="js-server-info text-lg"></p>
-    </form>
+            <input
+              type="password"
+              class="f-input"
+              id="password"
+              name="password"
+              autocomplete="new-password"
+              required
+              minlength="6"
+              maxlength="72"
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{6,72}$"
+            />
+          </div>
+          <div>
+            <label for="repeatedPassword" class="f-label"
+              >Confirmez votre mot passe</label
+            >
+            <input
+              type="password"
+              class="f-input"
+              id="repeatedPassword"
+              name="repeatedPassword"
+              required
+            />
+          </div>
+          <button class="c-btn w-full">Créer un compte</button>
+          <p class="form-card__footer">
+            Déjà inscrit ?
+            <a href="/connexion" class="text-link">Connexion</a>
+          </p>
+          <p class="js-server-info text-lg"></p>
+        </form>
+      </section>
+    </main>
     <script src="/js/signup.js"></script>
     <script src="/js/signout.js"></script>
   </body>
