@@ -2,6 +2,15 @@
 
 Application web de forum développée avec **Express.js**, **Node.js** et **Tailwind CSS**. Cette plateforme permet aux utilisateurs de créer des discussions, d'interagir et de partager leurs idées.
 
+## 📆 Avancement du projet
+
+- ✅ Initialisation de l'application Express avec rendu côté serveur via EJS et Tailwind pour le style.
+- ✅ Mise en place de l'authentification (inscription, connexion, déconnexion) avec sessions persistées en base.
+- ✅ Gestion des discussions : création sécurisée, génération de slugs uniques et affichage des listes sur la page d'accueil.
+- ✅ Gestion des posts dans une discussion : création, édition et suppression côté API avec sanitation du HTML.
+- ✅ Intégration front (Quill, fetch API) pour créer/modifier/supprimer des posts avec retours utilisateur en temps réel.
+- 🔄 Étape en cours : pagination des posts (limite de 10, navigation via `?page=` et redirection automatique vers la dernière page après ajout).
+
 ## 🚀 Technologies utilisées
 
 - **Node.js** - Environnement d'exécution JavaScript
@@ -72,30 +81,51 @@ forum-express/
 ├── package.json             # Dépendances et scripts npm
 ├── nodemon.json             # Configuration Nodemon
 ├── routes/                  # Routes de l'application
-│   └── pages/              # Routes des pages
-│       └── index.js        # Routeur principal
+│   ├── pages/               # Routes des pages (home, auth, thread)
+│   │   └── index.js
+│   └── api/                 # API REST (auth, threads, post)
+│       ├── auth.js
+│       ├── post.js
+│       └── threads.js
 ├── views/                   # Templates EJS
 │   └── pages/              # Vues des pages
-│       └── home.ejs        # Page d'accueil
+│       ├── home.ejs
+│       ├── thread.ejs
+│       ├── inscription.ejs
+│       └── connexion.ejs
 ├── public/                  # Fichiers statiques
 │   ├── styles/             # Fichiers CSS compilés
 │   │   └── main.css        # CSS principal (Tailwind compilé)
+│   ├── js/                 # Scripts front (Quill, fetch API)
+│   │   ├── create-thread.js
+│   │   └── thread.js
 │   └── icons/              # Icônes SVG
 ├── styles/                  # Fichiers sources CSS
 │   └── input/              # Fichiers d'entrée Tailwind
 │       └── tailwindInput.css
+├── services/                # Couche métier (auth, thread, post)
+├── models/                  # Schémas Mongoose
+├── middlewares/             # Middlewares personnalisés (sessions, guards)
+├── errors/                  # Classes d'erreurs custom
+└── utils/db                 # Connexion MongoDB
 └── .gitignore              # Fichiers ignorés par Git
 ```
 
 ## 🎯 Fonctionnalités
 
-- ✅ Page d'accueil avec navigation
-- ✅ Création de discussions
-- ✅ Système d'authentification (connexion/inscription)
-- ✅ Interface utilisateur moderne avec Tailwind CSS
-- ✅ Éditeur de texte riche (Quill)
-- ✅ Support du Markdown avec sanitization
-- 🔄 Fonctionnalités en cours de développement...
+- ✅ Page d'accueil listant les discussions les plus récentes.
+- ✅ Formulaires d'inscription/connexion avec validation côté serveur et gestion de session.
+- ✅ Création de discussions (titre + premier post) protégée par authentification.
+- ✅ Page de discussion avec affichage des posts, éditeur riche et contrôles conditionnels selon l'auteur.
+- ✅ API REST pour créer/mettre à jour/supprimer un post avec sanitation DOMPurify.
+- 🔄 Pagination des posts (10 par page) en cours d'implémentation côté client.
+
+## 🔄 Pagination des posts (travail en cours)
+
+- `services/thread/queries.js#getThreadsPost` renvoie les posts par lot de 10, ainsi que le flag `hasMorePosts` pour préparer le chargement incrémental.
+- La vue `views/pages/thread.ejs` consomme le paramètre `?page=` et délègue à `public/js/thread.js` la gestion des interactions (ajout, édition, suppression).
+- Après la création d'un post, la redirection renvoie automatiquement vers la dernière page (`lastPage`) avec ancrage sur le nouveau post.
+- Prochaines étapes : exposer le `totalPages` côté rendu, ajouter la navigation (précédent/suivant) et mettre en place un rafraîchissement partiel sans rechargement complet.
 
 ## 📝 Scripts disponibles
 
