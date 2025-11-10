@@ -72,8 +72,24 @@
       </ul>
 
       <% } else { %>
-      <p class="mb-5">Aucun post dans cette discussion</p>
+      <p class="mb-5">Aucun post dans cette page</p>
       <% } %>
+        <!--Pagination -->
+        <ul class="flex gap-2">
+          <% pagesToShow.forEach(p  => { %> 
+           <% if (p === "...") { %> 
+            <li><span>...</span></li>
+            <% } else { %> 
+              <li>
+                <a href="?page=<%= p %>"
+                  class="c-transparent-btn <%= p === page ? 'bg-gray-50 text-gray-800' : '' %>"
+                >
+                  <%= p %>
+                </a>
+              </li>
+              <% } %> 
+          <% }) %> 
+        </ul>
       <div class="mt-10">
         <p class="mb-2">
           Ajouter un message à cette discussion

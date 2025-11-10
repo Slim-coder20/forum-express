@@ -87,11 +87,18 @@ router.get("/discussion/:slug", async (req, res) => {
   }
 
   const page = parseInt(req.query.page, 10) || 1;
-  const { posts } = await getThreadsPost(page, thread._id, req.userId);
+  const { posts, totalPages, pagesToShow } = await getThreadsPost(
+    page,
+    thread._id,
+    req.userId
+  );
   res.render("pages/thread", {
     thread,
-    posts, 
-  })
+    posts,
+    pagesToShow,
+    totalPages,
+    page,
+  });
 });
 
 // création de la route pour la page 404 //
@@ -99,6 +106,6 @@ router.get("/404", (req, res) => {
   res.status(404).render("pages/not-found");
 });
 
-
+//
 // Export du routeur pour qu'il puisse être utilisé dans index.js
 export default router;
