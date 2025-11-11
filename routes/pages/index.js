@@ -28,10 +28,24 @@ const router = express.Router();
  * @param {Object} res - Objet de réponse Express pour envoyer la réponse au client
  */
 router.get("/", async (req, res) => {
-  // récupération des discussions pour la page d'accueil //
-  const { threads } = await getThreadsForHomePage(1);
+  const page = parseInt(req.query.page, 10) || 1;
 
-  res.render("pages/home", { threads });
+  // récupération des discussions pour la page d'accueil //
+  const {
+    threads,
+    totalPages,
+    hasPrev,
+    hasNext,
+    currentPage: safePage,
+  } = await getThreadsForHomePage(page);
+
+  res.render("pages/home", {
+    threads,
+    totalPages,
+    hasPrev,
+    hasNext,
+    currentPage: safePage,
+  });
 });
 
 // création de la route pour la page d'ajout de discussion //

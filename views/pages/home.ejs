@@ -38,7 +38,7 @@
               Voir mon profil
             </a>
             <% } else { %>
-            <a href="/inscription" class="c-btn "> Créer un compte gratuit </a>
+            <a href="/inscription" class="c-btn"> Créer un compte gratuit </a>
             <a href="/connexion" class="c-btn c-btn--ghost"> Se connecter </a>
             <% } %>
           </div>
@@ -69,7 +69,7 @@
           </p>
         </div>
         <% if(threads && threads.length > 0 ) { %>
-        <ul class="js-threads-list threads-grid">
+        <ul class="js-threads-list threads-grid cursor-pointer">
           <% threads.forEach(thread => { %>
           <li class="thread-card">
             <a
@@ -104,7 +104,46 @@
           </li>
           <% }) %>
         </ul>
-        <% } else { %>
+        <!-- Mise en place de la pagination pour la page d'accueil -->
+        <% if (totalPages > 1) { %>
+        <nav class="pagination">
+          <% if (hasPrev) { %>
+          <a class="pagination__control" href="/?page=<%= currentPage - 1 %>"
+            >← Précédent</a
+          >
+          <% } else { %>
+          <span class="pagination__control pagination__control--disabled"
+            >← Précédent</span
+          >
+          <% } %>
+
+          <ul class="pagination__pages">
+            <% for (let page = 1; page <= totalPages; page++) { %>
+            <li>
+              <% if (page === currentPage) { %>
+              <span class="pagination__page pagination__page--active"
+                ><%= page %></span
+              >
+              <% } else { %>
+              <a class="pagination__page" href="/?page=<%= page %>"
+                ><%= page %></a
+              >
+              <% } %>
+            </li>
+            <% } %>
+          </ul>
+
+          <% if (hasNext) { %>
+          <a class="pagination__control" href="/?page=<%= currentPage + 1 %>"
+            >Suivant →</a
+          >
+          <% } else { %>
+          <span class="pagination__control pagination__control--disabled"
+            >Suivant →</span
+          >
+          <% } %>
+        </nav>
+        <% } %> <% } else { %>
         <div class="empty-state">
           <div class="empty-state__icon">📭</div>
           <p>Aucune discussion pour le moment.</p>

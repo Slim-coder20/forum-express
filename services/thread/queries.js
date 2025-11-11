@@ -4,13 +4,31 @@ import Thread from "../../models/Thread.js";
 import Post from "../../models/Post.js";
 
 // requete pour récuperer les discussion dans la page d'accueil //
-export async function getThreadsForHomePage(currentPage) {
-  // calcul du nombre de documents à sauter //
+export async function getThreadsForHomePage(currentPage = 1) {
+  // On définit le nombre de documents à récupérer par page //
+  const limit = 10;
+  const totalThreads = await Thread.countDocuments();
+  const totalPages = Math.max(1, Math.ceil(totalThreads / limit));
+  const safePage = Math.min(Math.max(currentPage, 1), totalPages);
+  const skip = (safePage - 1) * limit;
+
   const threads = await Thread.find()
     .sort({ createdAt: -1 })
-    .limit(10)
+    .skip(skip)
+    .limit(limit)
     .populate("author", "userName");
-  return { threads };
+
+  const hasPrev = safePage > 1;
+  const hasNext = safePage < totalPages;
+
+  return {
+    threads,
+    totalPages,
+    totalThreads,
+    hasPrev,
+    hasNext,
+    currentPage: safePage,
+  };
 }
 
 // requete pour récuperer les discussion d'un utilisateur //
@@ -61,7 +79,7 @@ export async function getThreadsPost(currentPage, threadId, userId) {
       pagesToShow.push(i);
     }
   } else {
-    // 4ème condtion  : au milieu, entre + 7 depuis le début et -7 depuis la fin on affiche 1 "..." 7 pages ".." totalPages // 
+    // 4ème condtion  : au milieu, entre + 7 depuis le début et -7 depuis la fin on affiche 1 "..." 7 pages ".." totalPages //
     const start = currentPage - 3;
     pagesToShow.push(1, "...");
     for (let i = start; i <= start + 6; i++) {
@@ -74,7 +92,7 @@ export async function getThreadsPost(currentPage, threadId, userId) {
   return {
     posts: decoratedPost,
     hasMorePosts: posts.length === limit,
-    totalPages, 
-    pagesToShow
+    totalPages,
+    pagesToShow,
   };
 }
