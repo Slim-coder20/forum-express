@@ -7,7 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "buildTailwind": "npx @tailwindcss/cli -i ./styles/input/tailwindInput.css -o ./public/styles/main.css --watch"
+    "build:css": "npx @tailwindcss/cli -i ./styles/input/tailwindInput.css -o ./public/styles/main.css",
+    "buildTailwind": "npx @tailwindcss/cli -i ./styles/input/tailwindInput.css -o ./public/styles/main.css --watch",
+    "build": "npm run build:css",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
