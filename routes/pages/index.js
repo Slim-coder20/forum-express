@@ -15,6 +15,8 @@ import { requireAuthPage } from "../../middlewares/index.js";
 import Thread from "../../models/Thread.js";
 // import de la fonction pour récupérer les posts d'une discussion //
 import { getThreadsPost } from "../../services/thread/queries.js";
+// import de la fonction pour récuprér le User //
+import { getUserProfileInfo } from "../../services/user/queries.js";
 
 // Instanciation de l'objet Router d'Express
 // Permet de définir des routes modulaires qui peuvent être montées dans l'application principale
@@ -119,6 +121,21 @@ router.get("/discussion/:slug", async (req, res) => {
 router.get("/404", (req, res) => {
   res.status(404).render("pages/not-found");
 });
+
+// création de la route pour la page de profile utilisateur //
+router.get("/mon-profil/:normalizedUserName",
+  requireAuthPage,
+  async (req, res) => {
+    const { normalizedUserName } = req.params;
+    const profile = await getUserProfileInfo(normalizedUserName);
+
+    if (!profile) {
+      return res.status(404).render("pages/not-found");
+    }
+
+    res.render("pages/profil", profile);
+  }
+);
 
 //
 // Export du routeur pour qu'il puisse être utilisé dans index.js

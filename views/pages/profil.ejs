@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <title>Votre profil</title>
+  </head>
+  <body>
+    <%- include("../partials/navbar.ejs") %> <% const joinDate = new
+    Date(user.createdAt); %> <% const lastActivityDate = new
+    Date(stats.lastActivityAt || user.createdAt); %> <% const repliesCount =
+    Math.max((stats.totalPosts || 0) - (stats.totalThreads || 0), 0); %>
+    <main class="page-shell">
+      <section class="u-main-container profile-hero">
+        <div class="surface-card profile-identity">
+          <span class="pill">Profil membre</span>
+          <h1 class="profile-identity__title"><%= user.userName %></h1>
+          <p class="profile-identity__subtitle">
+            Membre depuis le
+            <strong>
+              <%= joinDate.toLocaleDateString("fr-FR", { day: "2-digit", month:
+              "long", year: "numeric", }) %>
+            </strong>
+            · Dernière activité le
+            <strong>
+              <%= lastActivityDate.toLocaleDateString("fr-FR", { day: "2-digit",
+              month: "short", year: "numeric", }).replace(".", "") %>
+            </strong>
+            à
+            <strong>
+              <%= lastActivityDate.toLocaleTimeString("fr-FR", { hour:
+              "2-digit", minute: "2-digit", }) %>
+            </strong>
+          </p>
+          <div class="profile-meta">
+            <span class="profile-meta__item">
+              <strong>Pseudo public :</strong> @<%= user.normalizedUserName %>
+            </span>
+            <span class="profile-meta__item">
+              <strong>Inscription :</strong>
+              <%= joinDate.toLocaleDateString("fr-FR", { day: "2-digit", month:
+              "long", year: "numeric", }) %>
+            </span>
+            <span class="profile-meta__item">
+              <strong>Fuseau horaire :</strong>
+              <%= Intl.DateTimeFormat().resolvedOptions().timeZone %>
+            </span>
+          </div>
+        </div>
+        <div class="surface-card profile-stats">
+          <div class="profile-stat">
+            <span class="profile-stat__label">Discussions créées</span>
+            <span class="profile-stat__value"> <%= stats.totalThreads %> </span>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat__label">Messages publiés</span>
+            <span class="profile-stat__value"> <%= stats.totalPosts %> </span>
+          </div>
+          <div class="profile-stat">
+            <span class="profile-stat__label">Réponses envoyées</span>
+            <span class="profile-stat__value"> <%= repliesCount %> </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="u-main-container">
+        <div class="section-heading">
+          <h2 class="section-heading__title">
+            Discussions de <%= user.userName %>
+          </h2>
+          <p class="section-heading__subtitle">
+            Retrouvez l’historique des conversations auxquelles <%=
+            user.userName %> a contribué sur Forum Express.
+          </p>
+        </div>
+        <% if (threads && threads.length > 0) { %>
+        <ul class="profile-thread-list threads-grid cursor-pointer">
+          <% threads.forEach(thread => { %>
+          <li class="thread-card">
+            <a
+              href="/discussion/<%= thread.slug %>?page=1"
+              class="thread-card__title"
+            >
+              <%= thread.title %>
+            </a>
+            <div class="thread-card__meta">
+              <span class="thread-card__author"> 👤 <%= user.userName %> </span>
+              <span class="thread-card__divider"></span>
+              <span class="pill">
+                💬 <%= thread.postCount %> post<%= thread.postCount > 1 ? "s" :
+                "" %>
+              </span>
+              <span class="thread-card__divider"></span>
+              <span>
+                Dernière mise à jour
+                <strong>
+                  <%= new Date(thread.updatedAt).toLocaleDateString("fr-FR", {
+                  day: "2-digit", month: "short", year: "numeric",
+                  }).replace(".", "") %>
+                </strong>
+                à
+                <strong>
+                  <%= new Date(thread.updatedAt).toLocaleTimeString("fr-FR", {
+                  hour: "2-digit", minute: "2-digit", }) %>
+                </strong>
+              </span>
+            </div>
+          </li>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <div class="empty-state">
+          <div class="empty-state__icon">🧑‍🚀</div>
+          <p>
+            <%= user.userName %> n’a pas encore lancé de discussion.
+            Encouragez-le à partager ses idées !
+          </p>
+        </div>
+        <% } %>
+      </section>
+    </main>
+    <script src="/js/signout.js"></script>
+  </body>
+</html>
