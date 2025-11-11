@@ -2,6 +2,11 @@
 
 Application web de forum développée avec **Express.js**, **Node.js** et **Tailwind CSS**. Cette plateforme permet aux utilisateurs de créer des discussions, d'interagir et de partager leurs idées.
 
+## 🌐 Démo en ligne
+
+- URL : https://forum-express.onrender.com/
+- Statut : déployé sur Render (Web Service)
+
 ## 📆 Avancement du projet
 
 - ✅ Initialisation de l'application Express avec rendu côté serveur via EJS et Tailwind pour le style.
@@ -34,18 +39,21 @@ Application web de forum développée avec **Express.js**, **Node.js** et **Tail
 ## 🛠️ Installation
 
 1. **Cloner le dépôt** (ou télécharger le projet)
+
    ```bash
    git clone <url-du-depot>
    cd forum-express
    ```
 
 2. **Installer les dépendances**
+
    ```bash
    npm install
    ```
 
 3. **Configurer les variables d'environnement**
    Créer un fichier `.env` à la racine du projet avec les variables nécessaires :
+
    ```env
    PORT=3000
    MONGODB_URI=mongodb://localhost:27017/forum-express
@@ -60,6 +68,7 @@ Application web de forum développée avec **Express.js**, **Node.js** et **Tail
 ### Mode développement
 
 Pour démarrer le serveur en mode développement avec rechargement automatique :
+
 ```bash
 npm run dev
 ```
@@ -67,11 +76,45 @@ npm run dev
 ### Compilation Tailwind CSS
 
 Pour compiler et surveiller les fichiers Tailwind CSS :
+
 ```bash
 npm run buildTailwind
 ```
 
 Le serveur sera accessible à l'adresse : `http://localhost:3000`
+
+## 🚀 Déploiement (Render)
+
+1. **Préparer le dépôt**
+
+   - S'assurer que `index.js` lit le port via `process.env.PORT` (Render fournit la valeur en production).
+   - Vérifier que la commande `npm start` lance bien l'application.
+   - Commiter et pousser vos modifications sur la branche cible (`main` par exemple).
+
+2. **Créer le service sur Render**
+
+   - Se connecter sur https://dashboard.render.com/ et cliquer sur **New +** > **Web Service**.
+   - Connecter le dépôt GitHub ou GitLab contenant ce projet.
+   - Choisir la branche à déployer et donner un nom au service (ex. `forum-express`).
+
+3. **Configurer les paramètres**
+
+   - **Environment** : `Node`.
+   - **Build Command** : `npm install` (Render l’exécute par défaut, laisser vide si souhaité).
+   - **Start Command** : `npm start`.
+   - Ajouter les variables d’environnement dans l’onglet **Environment** :
+     - `MONGODB_URI`
+     - `SESSION_SECRET`
+     - (Optionnel) `PORT` si vous souhaitez forcer une valeur spécifique.
+
+4. **Lancer le déploiement**
+
+   - Cliquer sur **Create Web Service**.
+   - Render installe les dépendances, exécute la commande de démarrage et fournit un domaine public (ex. `https://forum-express.onrender.com/`).
+
+5. **Mettre à jour en continu**
+   - Chaque push sur la branche suivie déclenche automatiquement un nouveau déploiement.
+   - Surveiller les logs Render pour diagnostiquer d’éventuelles erreurs de build ou de runtime.
 
 ## 📁 Structure du projet
 
@@ -136,22 +179,27 @@ forum-express/
 ## 🔧 Configuration
 
 ### Port du serveur
+
 Par défaut, le serveur écoute sur le port **3000**. Vous pouvez modifier cette valeur dans le fichier `index.js` ou via une variable d'environnement.
 
 ### Base de données
+
 Le projet utilise MongoDB avec Mongoose. Assurez-vous que votre URI de connexion MongoDB est correctement configurée dans le fichier `.env`.
 
 ## 🎨 Personnalisation
 
 ### Tailwind CSS
+
 Les fichiers Tailwind sont dans `styles/input/tailwindInput.css`. Après modification, exécutez `npm run buildTailwind` pour compiler les styles.
 
 ### Vues EJS
+
 Les templates sont dans le dossier `views/pages/`. Vous pouvez modifier les fichiers `.ejs` pour personnaliser l'interface.
 
 ## 📦 Dépendances principales
 
 ### Production
+
 - `express` - Framework web
 - `ejs` - Moteur de template
 - `mongoose` - ODM pour MongoDB
@@ -165,11 +213,13 @@ Les templates sont dans le dossier `views/pages/`. Vous pouvez modifier les fich
 - `tailwindcss` - Framework CSS
 
 ### Développement
+
 - `nodemon` - Rechargement automatique du serveur
 
 ## 🤝 Contribution
 
 Les contributions sont les bienvenues ! N'hésitez pas à :
+
 1. Fork le projet
 2. Créer une branche pour votre fonctionnalité (`git checkout -b feature/AmazingFeature`)
 3. Commit vos changements (`git commit -m 'Add some AmazingFeature'`)
@@ -187,4 +237,3 @@ Projet développé dans le cadre d'une formation React/Express.
 ---
 
 **Note** : Ce projet est en cours de développement. Certaines fonctionnalités peuvent être incomplètes ou en cours d'implémentation.
-
