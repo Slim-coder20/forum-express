@@ -24,8 +24,6 @@ import { getSessionInfo } from "./services/auth/queries.js";
 // import du routeur des posts //
 import postRouter from "./routes/api/post.js";
 
-
-
 // Configuration des variables d'environnement
 dotenv.config();
 // Connexion à la base de données MongoDB
@@ -128,6 +126,8 @@ app.use((req, res, next) => {
 // Démarrage du serveur sur le port 3000
 // Le serveur écoute les requêtes HTTP entrantes
 // Une fois démarré, un message de confirmation est affiché dans la console
-app.listen(3000, () => {
-  console.log("serveur demarré à sur le port 3000 http://localhost:3000/");
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(`serveur demarré sur le port ${port} http://localhost:${port}/`);
 });
