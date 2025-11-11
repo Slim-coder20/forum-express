@@ -7,9 +7,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "build:css": "npx @tailwindcss/cli -i ./styles/input/tailwindInput.css -o ./public/styles/main.css",
     "buildTailwind": "npx @tailwindcss/cli -i ./styles/input/tailwindInput.css -o ./public/styles/main.css --watch",
-    "build": "npm run build:css",
+    "build": "node -e \"console.log('skip build step')\"",
     "start": "node index.js"
   },
   "keywords": [],
